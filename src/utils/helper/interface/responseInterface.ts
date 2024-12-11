@@ -1,5 +1,3 @@
-import { Response as ExpressResponse } from 'express';
-
 export interface ErrorResponse {
   statusCode: number;
   success: boolean;
@@ -14,11 +12,3 @@ export interface SuccessResponse<T = any> {
   data: T;
 }
 
-export interface ResponseData {
-  res: ExpressResponse;
-  statusCode: number;
-  success: boolean;
-  message: string;
-  data: any;
-  error?: any;
-}

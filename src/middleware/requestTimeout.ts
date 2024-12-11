@@ -10,6 +10,7 @@ const requestTimeout = (req: Request, res: Response, next: NextFunction) => {
 
   const timer = setTimeout(() => {
     return ResponseHandler.error(
+      res,
       httpStatus.REQUEST_TIMEOUT,
       false,
       GLOBAL_MESSAGE.REQUEST_TIMEOUT,
