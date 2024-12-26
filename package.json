@@ -23,7 +23,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "migration:up": "npx sequelize-cli db:migrate --",
     "migration:down": "npx sequelize-cli db:migrate:undo --",
-    "migration:reset": "npx sequelize-cli db:migrate:undo:all",
+    "migration:reset": "npx sequelize-cli db:migrate:undo:all --",
     "seeder:up": "npx sequelize-cli db:seed:all --",
     "seeder:down": "npx sequelize-cli db:seed:undo:all --"
   },
