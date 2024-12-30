@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import net from 'net';
 import app from './app';
+import sequelize, { initializeConnection } from './database/config/config';
 import { logger } from './utils/logger';
-import sequelize from './database/config/config';
 
 dotenv.config({ path: `${__dirname}/../.env` });
 
@@ -102,14 +102,15 @@ const startServer = async () => {
       process.exit(1); // Exit with failure
     }
 
+    // Connect to the database
+    // await sequelize.authenticate()
+    await initializeConnection();
+    // logger.info(__filename, '', '', 'Connected to Postgres successfully', '');
+
     // Start the HTTP server
     const server = app.listen(PORT, () => {
-      logger.info(__filename, '', '', `Server is running on port ${PORT}`, '');
+      logger.info(__filename, '', '', `🚀 Application is running on: http://localhost:${PORT}/api`, '');
     });
-
-    // Connect to the database
-    await sequelize.authenticate()
-    logger.info(__filename, '', '', 'Connected to Postgres successfully', '');
 
     // Listen for shutdown signals
     process.on('SIGINT', () => shutdown(server)); // Handle Ctrl+C

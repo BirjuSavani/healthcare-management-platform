@@ -25,7 +25,39 @@ const sequelize: Sequelize = new Sequelize(
     host: process.env.DATABASE_HOST,
     dialect: process.env.DATABASE_TYPE as Dialect,
     logging: false,
+    retry: {
+      max: 5, // Maximum number of retries
+      match: [/SequelizeConnectionError/, /SequelizeConnectionRefusedError/], // List of error codes to retry
+      backoffBase: 100, // Initial backoff time in milliseconds
+      backoffExponent: 1, // Backoff exponent factor for each retry
+    },
   }
 );
+
+const connectWithRetry = async () => {
+  let retries = 5;
+
+  while (retries > 0) {
+    // Changed from "while (retries < 5)"
+    try {
+      await sequelize.authenticate();
+      logger.info(__filename, '', '', 'Database connection established successfully'); // Added success log
+      return;
+    } catch (error) {
+      retries--;
+      logger.error(__filename, '', '', `Database connection failed. Retries left: ${retries}`, error);
+
+      if (retries === 0) {
+        logger.error(__filename, '', '', 'Max retries reached. Could not connect to database', '');
+        process.exit(1);
+      } else {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+      }
+    }
+  }
+};
+
+// Initialize connection
+export const initializeConnection = () => connectWithRetry();
 
 export default sequelize;
