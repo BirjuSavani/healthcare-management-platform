@@ -13,11 +13,57 @@ export const GLOBAL_MESSAGE = {
   SERVICE_UNAVAILABLE: 'Service Unavailable',
   GATEWAY_TIMEOUT: 'Gateway Timeout',
   MISSING_REQUIRED_ENVIRONMENT_VARIABLES: 'Missing required environment variables for database configuration',
-  REQUEST_TIMEOUT:'Request Timeout'
+  REQUEST_TIMEOUT: 'Request Timeout',
 };
 
-export const SUCCESS_MESSAGE = {};
+export const SUCCESS_MESSAGE = {
+  SIGNUP: 'You have signed up successfully.',
+  LOGIN: 'You have logged in successfully.',
+  GET_ALL_USERS: 'Users retrieved successfully.',
+  GET_USER_PROFILE: 'User profile retrieved successfully.',
+};
 
-export const ERROR_MESSAGE = {};
+export const ERROR_MESSAGE = {
+  CONVERT_PLAIN_TEXT_TO_HASH: 'An error occurred while converting plain text to a hashed format.',
+  SIGNUP: 'An unexpected error occurred during the signup process.',
+  SIGNUP_FAILURE: 'Signup failed due to an error.',
+  FIND_BY_EMAIL_FAILURE: 'An error occurred while searching for the user by email.',
+  EMAIL_ALREADY_EXISTS: 'This email is already associated with an existing account.',
+  COMPARE_PASSWORD: 'An error occurred while verifying the password.',
+  JWT_SECRET_NOT_SET: 'The JWT secret key is not configured in the environment variables.',
+  GENERATE_TOKEN: 'An error occurred while generating the authentication token.',
+  INVALID_CREDENTIALS: 'The provided credentials are invalid.',
+  USER_NOT_FOUND: 'No user was found with the provided details.',
+  LOGIN: 'An unexpected error occurred during the login process.',
+  PHONE_NUMBER_ALREADY_EXISTS: 'This phone number is already associated with an existing account.',
+  FIND_BY_PHONE_NUMBER_FAILURE: 'An error occurred while searching for the user by phone number.',
+  FIND_USER_FAILURE: 'An error occurred while retrieving user details.',
+  UNAUTHORIZED_ACCESS: 'You do not have the necessary permissions to perform this operation.',
+  UPDATE_CREATE_BY_FAILURE: 'An error occurred while updating the created_by or last_modified_by fields.',
+  GET_ALL_USERS: 'An error occurred while retrieving the list of users.',
+  GET_USER_PROFILE: 'An error occurred while retrieving the user profile.',
+};
 
-export const VALIDATION_ERROR_MESSAGE = {};
+export const VALIDATION_ERROR_MESSAGE = {
+  FIRST_NAME_REQUIRED: 'Please enter your first name.',
+  FIRST_NAME_MIN_LENGTH: 'First name must be at least 3 characters long.',
+  FIRST_NAME_MAX_LENGTH: 'First name must not exceed 30 characters.',
+  FIRST_NAME_ALPHANUMERIC: 'First name should contain only letters and numbers.',
+  LAST_NAME_REQUIRED: 'Please enter your last name.',
+  LAST_NAME_MIN_LENGTH: 'Last name must be at least 3 characters long.',
+  LAST_NAME_MAX_LENGTH: 'Last name must not exceed 30 characters.',
+  LAST_NAME_ALPHANUMERIC: 'Last name should contain only letters and numbers.',
+  EMAIL_REQUIRED: 'Please enter a valid email address.',
+  EMAIL_INVALID: 'The email format is invalid. Please provide a valid email.',
+  PASSWORD_REQUIRED: 'Please enter a password.',
+  PASSWORD_MIN_LENGTH: 'Password must be at least 8 characters long.',
+  PASSWORD_MAX_LENGTH: 'Password must not exceed 30 characters.',
+  PHONE_NUMBER_REQUIRED: 'Please enter your phone number.',
+  PHONE_NUMBER_INVALID: 'Phone number must be between 10 and 15 digits.',
+  ROLE_REQUIRED: 'Please specify a user role.',
+  ROLE_INVALID: 'The provided role is invalid.',
+  DATE_OF_BIRTH_REQUIRED: 'Please enter your date of birth.',
+  DATE_OF_BIRTH_INVALID: 'The date of birth format is invalid. Please enter a valid date.',
+  GENDER_REQUIRED: 'Please select your gender.',
+  GENDER_INVALID: 'The selected gender is invalid.',
+};

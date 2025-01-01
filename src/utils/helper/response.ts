@@ -1,5 +1,5 @@
 import { Response as ExpressResponse } from 'express';
-import { ErrorResponse, SuccessResponse } from './interface/responseInterface';
+import { IApiResponse } from './interface/responseInterface';
 
 export class ResponseHandler {
   static success<T>(
@@ -8,7 +8,7 @@ export class ResponseHandler {
     success: boolean,
     message: string,
     data: T
-  ): SuccessResponse<T> {
+  ): IApiResponse<T> {
     const response = {
       statusCode,
       success,
@@ -19,13 +19,7 @@ export class ResponseHandler {
     return response;
   }
 
-  static error(
-    res: ExpressResponse,
-    statusCode: number,
-    success: boolean,
-    message: string,
-    error?: any
-  ): ErrorResponse {
+  static error(res: ExpressResponse, statusCode: number, success: boolean, message: string, error?: any): IApiResponse {
     const response = {
       statusCode,
       success: false,

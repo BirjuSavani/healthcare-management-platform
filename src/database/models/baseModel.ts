@@ -21,6 +21,7 @@ const addCommonFields = (fields: any) => ({
       model: 'user',
       key: 'user_id',
     },
+    defaultValue: null,
   },
   last_modified_by: {
     type: DataTypes.UUID,
@@ -29,6 +30,7 @@ const addCommonFields = (fields: any) => ({
       model: 'user',
       key: 'user_id',
     },
+    defaultValue: null,
   },
 });
 

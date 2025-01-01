@@ -1,4 +1,6 @@
 import { Application, Router } from 'express';
+import AuthRouter from './authRoutes';
+import UserRouter from './userRoutes';
 
 export default (app: Application) => {
   const apiRouter: Router = Router();
@@ -8,4 +10,8 @@ export default (app: Application) => {
    */
 
   app.use('/api', apiRouter);
+
+  apiRouter.use('/auth', AuthRouter);
+
+  apiRouter.use('/user', UserRouter);
 };
