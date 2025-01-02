@@ -1,3 +1,6 @@
+import { IApiResponse } from '../../../utils/helper/interface/responseInterface';
+import { IUser } from '../../User/interface/userInterface';
+
 export interface IAuthPayload {
   readonly first_name: string;
   readonly last_name: string;
@@ -44,3 +47,12 @@ export enum IRole {
   DOCTOR = 'doctor',
   END_USER = 'enduser',
 }
+
+export type AuthResponse = Promise<IApiResponse<IUserData>>;
+
+interface ILoginData {
+  token: string;
+  user: IUser;
+}
+
+export type LoginResponse = Promise<IApiResponse<ILoginData>>;

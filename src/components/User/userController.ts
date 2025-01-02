@@ -3,13 +3,13 @@ import httpStatus from 'http-status';
 import { ERROR_MESSAGE, GLOBAL_MESSAGE, SUCCESS_MESSAGE } from '../../constant/message';
 import { CustomRequest } from '../../middleware/authMiddleware';
 import { ResponseHandler } from '../../utils/helper';
-import { IApiResponse } from '../../utils/helper/interface/responseInterface';
 import { logger } from '../../utils/logger';
 import authService from '../Auth/authService';
+import { UserListResponse, UserProfileResponse } from './interface/userInterface';
 import userService from './userService';
 
 class UserController {
-  async getAllUsers(req: Request, res: Response): Promise<IApiResponse> {
+  async getAllUsers(req: Request, res: Response): UserListResponse {
     try {
       const users = await userService.getAllUsers(req);
 
@@ -28,7 +28,7 @@ class UserController {
     }
   }
 
-  async getUserProfile(req: Request, res: Response): Promise<IApiResponse> {
+  async getUserProfile(req: Request, res: Response): UserProfileResponse {
     try {
       const { userId } = req as CustomRequest;
       const user = await authService.findById(userId);

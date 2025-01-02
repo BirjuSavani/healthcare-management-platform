@@ -4,17 +4,16 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../constant/message';
 import { CustomRequest } from '../../middleware/authMiddleware';
 import { comparePassword, convertPlainTextToHash, generateToken } from '../../utils/commonUtils';
 import { ResponseHandler } from '../../utils/helper';
-import { IApiResponse } from '../../utils/helper/interface/responseInterface';
 import { logger } from '../../utils/logger';
 import AuthService from './authService';
-import { IAuthPayload, ILoginPayload, IUserData } from './interface/authInterface';
+import { AuthResponse, IAuthPayload, ILoginPayload, IUserData, LoginResponse } from './interface/authInterface';
 
 class AuthController {
   /**
    * Handles user signup by superadmin.
    * Validates the payload, checks for existing user or phone number, and creates a new user.
    */
-  async signup(req: Request, res: Response): Promise<IApiResponse> {
+  async signup(req: Request, res: Response): AuthResponse {
     try {
       const { userId } = req as CustomRequest;
       const payload: IAuthPayload = req.body;
@@ -63,7 +62,7 @@ class AuthController {
    * Handles user login.
    * Validates credentials, generates a token, and returns user data.
    */
-  async login(req: Request, res: Response): Promise<IApiResponse> {
+  async login(req: Request, res: Response): LoginResponse {
     try {
       const payload: ILoginPayload = req.body;
 
@@ -92,12 +91,17 @@ class AuthController {
 
       logger.info(__filename, '', '', SUCCESS_MESSAGE.LOGIN, { userId: authData.user_id });
 
+      const authResponse = {
+        token,
+        user: { ...authData, password: undefined }, // Exclude password from response
+      };
+
       return ResponseHandler.success(
         res,
         httpStatus.OK,
         true,
         SUCCESS_MESSAGE.LOGIN,
-        { token, user: { ...authData, password: undefined } } // Exclude password from response
+        authResponse
       );
     } catch (error: any) {
       logger.error(__filename, '', '', ERROR_MESSAGE.LOGIN, { error: error.message || error });
