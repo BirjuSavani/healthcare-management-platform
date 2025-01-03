@@ -1,6 +1,8 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/config';
+import Appointment from './appointment';
 import { addCommonFields, BaseModel } from './baseModel';
+import UserMaster from './user';
 
 class Prescription extends BaseModel {}
 
@@ -63,9 +65,16 @@ Prescription.init(
   }),
   {
     sequelize,
-    modelName: 'Prescription',
     tableName: 'prescription',
+    modelName: 'Prescription',
   }
 );
+
+Prescription.belongsTo(Appointment, { foreignKey: 'appointment_id', as: 'appointment' });
+Prescription.belongsTo(UserMaster, { foreignKey: 'doctor_id', as: 'doctor' });
+Prescription.belongsTo(UserMaster, { foreignKey: 'user_id', as: 'user' });
+
+Prescription.belongsTo(UserMaster, { foreignKey: 'created_by', as: 'createdBy' });
+Prescription.belongsTo(UserMaster, { foreignKey: 'last_modified_by', as: 'lastModifiedBy' });
 
 export default Prescription;

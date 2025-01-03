@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/config';
 import { addCommonFields, BaseModel } from './baseModel';
+import Specialization from './specialization';
 
 class UserMetaData extends BaseModel {}
 
@@ -76,5 +77,11 @@ UserMetaData.init(
     modelName: 'UserMetadata',
   }
 );
+
+UserMetaData.belongsTo(UserMetaData, { foreignKey: 'user_id', as: 'user' });
+UserMetaData.belongsTo(UserMetaData, { foreignKey: 'created_by', as: 'createdBy' });
+UserMetaData.belongsTo(UserMetaData, { foreignKey: 'last_modified_by', as: 'lastModifiedBy' });
+
+UserMetaData.hasMany(Specialization, { foreignKey: 'specialization_id', as: 'specialization' });
 
 export default UserMetaData;

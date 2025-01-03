@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/config';
 import { addCommonFields, BaseModel } from './baseModel';
+import UserMaster from './user';
 
 class SlotMaster extends BaseModel {}
 
@@ -44,5 +45,10 @@ SlotMaster.init(
     tableName: 'slot',
   }
 );
+
+SlotMaster.belongsTo(UserMaster, { foreignKey: 'doctor_id', as: 'doctor' });
+
+SlotMaster.belongsTo(UserMaster, { foreignKey: 'created_by', as: 'createdBy' });
+SlotMaster.belongsTo(UserMaster, { foreignKey: 'last_modified_by', as: 'lastModifiedBy' });
 
 export default SlotMaster;

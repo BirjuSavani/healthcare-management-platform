@@ -22,6 +22,7 @@ export interface ILoginPayload {
   readonly password: string;
 }
 
+// Interface for user data including hashed password
 export interface IUserData {
   readonly user_id: string;
   readonly first_name: string;

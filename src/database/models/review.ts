@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/config';
 import { addCommonFields, BaseModel } from './baseModel';
+import UserMaster from './user';
 
 class Review extends BaseModel {}
 
@@ -43,5 +44,11 @@ Review.init(
     tableName: 'review',
   }
 );
+
+Review.belongsTo(UserMaster, { foreignKey: 'created_by', as: 'createdBy' });
+Review.belongsTo(UserMaster, { foreignKey: 'last_modified_by', as: 'lastModifiedBy' });
+
+Review.belongsTo(UserMaster, { foreignKey: 'doctor_id', as: 'doctor' });
+Review.belongsTo(UserMaster, { foreignKey: 'user_id', as: 'user' });
 
 export default Review;

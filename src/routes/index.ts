@@ -1,4 +1,5 @@
 import { Application, Router } from 'express';
+import AdminRouter from './adminRoutes';
 import AuthRouter from './authRoutes';
 import UserRouter from './userRoutes';
 
@@ -13,5 +14,7 @@ export default (app: Application) => {
 
   apiRouter.use('/auth', AuthRouter);
 
+  apiRouter.use('/admin', AdminRouter);
+  // apiRouter.use('/doctor', DoctorRouter);
   apiRouter.use('/user', UserRouter);
 };

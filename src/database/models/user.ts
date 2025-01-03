@@ -70,4 +70,7 @@ UserMaster.init(
   }
 );
 
+UserMaster.belongsTo(UserMaster, { as: 'createdBy', foreignKey: 'created_by' });
+UserMaster.belongsTo(UserMaster, { as: 'lastModifiedBy', foreignKey: 'last_modified_by' });
+
 export default UserMaster;

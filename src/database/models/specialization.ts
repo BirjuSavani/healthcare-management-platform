@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/config';
 import { addCommonFields, BaseModel } from './baseModel';
+import UserMaster from './user';
 
 class Specialization extends BaseModel {}
 
@@ -28,5 +29,8 @@ Specialization.init(
     tableName: 'specialization',
   }
 );
+
+Specialization.belongsTo(UserMaster, { foreignKey: 'created_by', as: 'createdBy' });
+Specialization.belongsTo(UserMaster, { foreignKey: 'last_modified_by', as: 'lastModifiedBy' });
 
 export default Specialization;

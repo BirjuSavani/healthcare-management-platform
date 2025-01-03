@@ -1,6 +1,8 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/config';
 import { addCommonFields, BaseModel } from './baseModel';
+import SlotMaster from './slot';
+import UserMaster from './user';
 
 class Appointment extends BaseModel {}
 
@@ -73,9 +75,17 @@ Appointment.init(
   }),
   {
     sequelize,
-    modelName: 'Appointment',
     tableName: 'appointment',
+    modelName: 'Appointment',
   }
 );
 
+Appointment.belongsTo(UserMaster, { foreignKey: 'user_id', as: 'user' });
+Appointment.belongsTo(UserMaster, { foreignKey: 'doctor_id', as: 'doctor' });
+Appointment.belongsTo(SlotMaster, { foreignKey: 'slot_id', as: 'slot' });
+// Appointment.hasMany(AppointmentHistory, { foreignKey: 'appointment_id', as: 'appointmentHistories' });
+// Appointment.hasOne(Prescription, { foreignKey: 'appointment_id', as: 'prescription' });
+
+Appointment.belongsTo(UserMaster, { foreignKey: 'created_by', as: 'createdBy' });
+Appointment.belongsTo(UserMaster, { foreignKey: 'last_modified_by', as: 'lastModifiedBy' });
 export default Appointment;

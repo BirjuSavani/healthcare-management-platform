@@ -21,6 +21,9 @@ export const SUCCESS_MESSAGE = {
   LOGIN: 'You have logged in successfully.',
   GET_ALL_USERS: 'Users retrieved successfully.',
   GET_USER_PROFILE: 'User profile retrieved successfully.',
+  GET_USER_BY_ID: 'User retrieved successfully.',
+  UPDATE_USER: 'User updated successfully.',
+  DELETE_USER: 'User deleted successfully.',
 };
 
 export const ERROR_MESSAGE = {
@@ -42,6 +45,10 @@ export const ERROR_MESSAGE = {
   UPDATE_CREATE_BY_FAILURE: 'An error occurred while updating the created_by or last_modified_by fields.',
   GET_ALL_USERS: 'An error occurred while retrieving the list of users.',
   GET_USER_PROFILE: 'An error occurred while retrieving the user profile.',
+  GET_USER_BY_ID: 'An error occurred while retrieving the user by ID.',
+  UPDATE_USER: 'An error occurred while updating the user.',
+  NO_USERS_FOUND: 'No users were found in the database.',
+  DELETE_USER: 'An error occurred while deleting the user.',
 };
 
 export const VALIDATION_ERROR_MESSAGE = {
@@ -66,4 +73,5 @@ export const VALIDATION_ERROR_MESSAGE = {
   DATE_OF_BIRTH_INVALID: 'The date of birth format is invalid. Please enter a valid date.',
   GENDER_REQUIRED: 'Please select your gender.',
   GENDER_INVALID: 'The selected gender is invalid.',
+  IS_ACTIVE_REQUIRED: 'Please specify whether the user is active or not.',
 };

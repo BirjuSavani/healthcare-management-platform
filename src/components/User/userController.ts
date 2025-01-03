@@ -5,29 +5,9 @@ import { CustomRequest } from '../../middleware/authMiddleware';
 import { ResponseHandler } from '../../utils/helper';
 import { logger } from '../../utils/logger';
 import authService from '../Auth/authService';
-import { UserListResponse, UserProfileResponse } from './interface/userInterface';
-import userService from './userService';
+import { UserProfileResponse } from './interface/userInterface';
 
 class UserController {
-  async getAllUsers(req: Request, res: Response): UserListResponse {
-    try {
-      const users = await userService.getAllUsers(req);
-
-      logger.info(__filename, '', '', SUCCESS_MESSAGE.GET_ALL_USERS, '');
-
-      return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.GET_ALL_USERS, users);
-    } catch (error) {
-      logger.error(__filename, req.method, '', ERROR_MESSAGE.GET_ALL_USERS, error);
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
-    }
-  }
-
   async getUserProfile(req: Request, res: Response): UserProfileResponse {
     try {
       const { userId } = req as CustomRequest;
