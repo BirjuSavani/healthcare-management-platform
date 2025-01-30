@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { createLogger, format, transports } from 'winston';
 import 'winston-daily-rotate-file';
 const { combine, printf } = format;
@@ -21,7 +21,7 @@ class Logging {
   });
 
   public myFormat = printf(({ level, message }) => {
-    return `${moment.utc().format()} ${level}: ${message}`;
+    return `[${moment.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}] ${level}: ${message}`;
   });
 
   /**
@@ -29,7 +29,12 @@ class Logging {
    */
   constructor() {
     this.logger = createLogger({
-      format: combine(format.timestamp(), format.json()),
+      format: combine(
+        format.timestamp({
+          format: () => moment.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss'),
+        }),
+        format.json()
+      ),
       transports: [
         this.transport,
         new transports.Console({

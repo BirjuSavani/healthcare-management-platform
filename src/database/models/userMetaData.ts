@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/config';
 import { addCommonFields, BaseModel } from './baseModel';
 import Specialization from './specialization';
+import UserMaster from './user';
 
 class UserMetaData extends BaseModel {}
 
@@ -22,7 +23,7 @@ UserMetaData.init(
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'specialization',
+        model: Specialization,
         key: 'specialization_id',
       },
     },
@@ -66,7 +67,7 @@ UserMetaData.init(
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'user',
+        model: UserMaster,
         key: 'user_id',
       },
     },
@@ -75,13 +76,14 @@ UserMetaData.init(
     sequelize,
     tableName: 'user_metadata',
     modelName: 'UserMetadata',
+    timestamps: false,
   }
 );
 
-UserMetaData.belongsTo(UserMetaData, { foreignKey: 'user_id', as: 'user' });
-UserMetaData.belongsTo(UserMetaData, { foreignKey: 'created_by', as: 'createdBy' });
-UserMetaData.belongsTo(UserMetaData, { foreignKey: 'last_modified_by', as: 'lastModifiedBy' });
+UserMetaData.belongsTo(UserMaster, { foreignKey: 'user_id', as: 'user' });  
+UserMetaData.belongsTo(UserMaster, { foreignKey: 'created_by', as: 'createdBy' });
+UserMetaData.belongsTo(UserMaster, { foreignKey: 'last_modified_by', as: 'lastModifiedBy' });
 
-UserMetaData.hasMany(Specialization, { foreignKey: 'specialization_id', as: 'specialization' });
+UserMetaData.belongsTo(Specialization, { foreignKey: 'specialization_id', as: 'specialization' });
 
 export default UserMetaData;

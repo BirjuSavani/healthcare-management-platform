@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import { VALIDATION_ERROR_MESSAGE } from '../../constant/message';
-import { IRole } from '../Auth/interface/authInterface';
+import { VALIDATION_ERROR_MESSAGE } from '../../../constant/message';
+import { IRole } from '../../Auth/interface/authInterface';
 
 export const updateUserSchema = Joi.object({
   first_name: Joi.string().min(3).max(30).required().messages({

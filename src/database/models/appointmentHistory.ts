@@ -82,6 +82,7 @@ AppointmentHistory.init(
     sequelize,
     modelName: 'Appointment_History',
     tableName: 'appointment_history',
+    timestamps: false,
   }
 );
 

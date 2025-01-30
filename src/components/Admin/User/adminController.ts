@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { ERROR_MESSAGE, GLOBAL_MESSAGE, SUCCESS_MESSAGE } from '../../constant/message';
-import { CustomRequest } from '../../middleware/authMiddleware';
-import { ResponseHandler } from '../../utils/helper';
-import { IApiResponse } from '../../utils/helper/interface/responseInterface';
-import { logger } from '../../utils/logger';
+import { ERROR_MESSAGE, GLOBAL_MESSAGE, SUCCESS_MESSAGE } from '../../../constant/message';
+import { CustomRequest } from '../../../middleware/authMiddleware';
+import { ResponseHandler } from '../../../utils/helper';
+import { IApiResponse } from '../../../utils/helper/interface/responseInterface';
+import { logger } from '../../../utils/logger';
 import adminService from './adminService';
 import { IUpdateUserPayload, UpdateUserResponse, UserListResponse, UserResponse } from './interface/adminInterface';
 

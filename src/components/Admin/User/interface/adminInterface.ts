@@ -1,7 +1,7 @@
-import { UserMaster } from '../../../database/models';
-import { IApiResponse } from '../../../utils/helper/interface/responseInterface';
-import { IUserData } from '../../Auth/interface/authInterface';
-import { IUser } from '../../User/interface/userInterface';
+import { UserMaster } from '../../../../database/models';
+import { IApiResponse } from '../../../../utils/helper/interface/responseInterface';
+import { IUserData } from '../../../Auth/interface/authInterface';
+import { IUser } from '../../../User/Profile/interface/userInterface';
 
 interface IUserList {
   data: UserMaster[];

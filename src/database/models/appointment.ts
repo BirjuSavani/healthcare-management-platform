@@ -77,6 +77,7 @@ Appointment.init(
     sequelize,
     tableName: 'appointment',
     modelName: 'Appointment',
+    timestamps: false,
   }
 );
 

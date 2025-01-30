@@ -43,6 +43,7 @@ SlotMaster.init(
     sequelize,
     modelName: 'Slot',
     tableName: 'slot',
+    timestamps: false,
   }
 );
 

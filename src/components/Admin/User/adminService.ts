@@ -1,11 +1,12 @@
 import { Request } from 'express';
 import { Op } from 'sequelize';
-import { ERROR_MESSAGE } from '../../constant/message';
-import { UserMaster } from '../../database/models';
-import { paginate } from '../../utils/helper/paginationHelper';
-import { logger } from '../../utils/logger';
-import { IRole, IUserData } from '../Auth/interface/authInterface';
-import { IUser } from '../User/interface/userInterface';
+import { ERROR_MESSAGE } from '../../../constant/message';
+import { UserMaster } from '../../../database/models';
+import { convertPlainTextToHash } from '../../../utils/commonUtils';
+import { paginate } from '../../../utils/helper/paginationHelper';
+import { logger } from '../../../utils/logger';
+import { IRole, IUserData } from '../../Auth/interface/authInterface';
+import { IUser } from '../../User/Profile/interface/userInterface';
 import { IUpdateUserPayload } from './interface/adminInterface';
 
 class AdminService {
@@ -84,8 +85,10 @@ class AdminService {
    */
   async updateUser(updateUserId: string, payload: IUpdateUserPayload, userId: string): Promise<IUserData> {
     try {
+      const hasPassword = await convertPlainTextToHash(payload.password);
+
       const [updateCount, updatedUsers] = await UserMaster.update(
-        { ...payload, last_modified_by: userId },
+        { ...payload, password: hasPassword, last_modified_by: userId, updated_at: new Date() },
         {
           where: { user_id: updateUserId },
           returning: true,

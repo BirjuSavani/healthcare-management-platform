@@ -1,5 +1,7 @@
+import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import httpStatus from 'http-status';
+import path from 'path';
 import { GLOBAL_MESSAGE } from './constant/message';
 import middleware from './middleware';
 import routes from './routes';
@@ -10,6 +12,18 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, './notification/templates'));
+app.use('/public', express.static(path.join(__dirname, '../public')));
+
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow only GET and POST methods
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 // Middleware
 middleware(app);
