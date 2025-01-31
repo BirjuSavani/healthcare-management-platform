@@ -31,6 +31,11 @@ middleware(app);
 // Routes
 routes(app);
 
+// Base route to health check
+app.get('/health', (req: Request, res: Response): any => {
+	return res.status(200).send('healthy')
+})
+
 // Handle invalid routes
 app.all('/*', (req: Request, res: Response): any => {
   logger.error(__filename, 'Invalid Route Handler', '', 'Invalid Route Fired : ' + req.path, {});
