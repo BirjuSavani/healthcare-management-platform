@@ -18,7 +18,7 @@
     "dev:tsc": "tsc -w",
     "dev:node": "node --watch --env-file .env build/server.js",
     "dev": "npm run format:check && npm run lint:check && concurrently npm:dev:*",
-    "build": "npm run lint:check && bash -c tsc -p tsconfig.json --noEmit",
+    "build": "bash -c tsc -p tsconfig.json --noEmit",
     "prod": "NODE_ENV=production npm run build && npm run start",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint --fix .",
