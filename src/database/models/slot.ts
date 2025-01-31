@@ -11,39 +11,39 @@ SlotMaster.init(
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4
     },
     doctor_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'user',
-        key: 'user_id',
-      },
+        key: 'user_id'
+      }
     },
     day_of_week: {
       type: DataTypes.ENUM,
       values: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-      allowNull: false,
+      allowNull: false
     },
     start_time: {
       type: DataTypes.TIME,
-      allowNull: false,
+      allowNull: false
     },
     end_time: {
       type: DataTypes.TIME,
-      allowNull: false,
+      allowNull: false
     },
     blocking_reason: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }),
   {
     sequelize,
     modelName: 'Slot',
     tableName: 'slot',
-    timestamps: false,
+    timestamps: false
   }
 );
 

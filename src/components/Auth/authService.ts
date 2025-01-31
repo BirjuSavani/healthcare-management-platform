@@ -85,7 +85,7 @@ class AuthService {
         isActive: true,
         isDeleted: false,
         created_by: userId ?? null,
-        last_modified_by: userId ?? null,
+        last_modified_by: userId ?? null
       });
 
       // Get the user data
@@ -115,10 +115,10 @@ class AuthService {
         { created_by: userId, last_modified_by: userId },
         {
           where: {
-            user_id: userId,
+            user_id: userId
           },
           returning: true,
-          transaction,
+          transaction
         }
       );
       return user[1][0].get({ plain: true }) as IUserData;
@@ -140,10 +140,10 @@ class AuthService {
         { created_by: userId, last_modified_by: userId },
         {
           where: {
-            user_id: userId,
+            user_id: userId
           },
           returning: true,
-          transaction,
+          transaction
         }
       );
       return user[1][0].get({ plain: true }) as IUserData;
@@ -179,7 +179,7 @@ class AuthService {
           isActive: true,
           isDeleted: false,
           created_by: userId ?? null,
-          last_modified_by: userId ?? null,
+          last_modified_by: userId ?? null
         },
         { transaction }
       );
@@ -207,7 +207,7 @@ class AuthService {
           country: doctorPayload.country,
           user_id: userData.user_id,
           created_by: userId ?? null,
-          last_modified_by: userId ?? null,
+          last_modified_by: userId ?? null
         },
         { transaction }
       );
@@ -236,10 +236,7 @@ class AuthService {
    */
   async updateUserResetToken(userId: string, resetToken: string, resetTokenExpiry: Date): Promise<void> {
     try {
-      await UserMaster.update(
-        { reset_password_token: resetToken, reset_password_expires: resetTokenExpiry },
-        { where: { user_id: userId } }
-      );
+      await UserMaster.update({ reset_password_token: resetToken, reset_password_expires: resetTokenExpiry }, { where: { user_id: userId } });
     } catch (error) {
       logger.error(__filename, '', '', ERROR_MESSAGE.FORGET_PASSWORD, { userId, error });
       throw new Error(`${ERROR_MESSAGE.FORGET_PASSWORD}: ${error}`);
@@ -254,7 +251,7 @@ class AuthService {
   async findByResetToken(token: string): Promise<IUserData | null> {
     try {
       return await this.findUser({
-        where: { reset_password_token: token, reset_password_expires: { [Op.gt]: new Date() } },
+        where: { reset_password_token: token, reset_password_expires: { [Op.gt]: new Date() } }
       });
     } catch (error) {
       logger.error(__filename, '', '', ERROR_MESSAGE.FIND_BY_EMAIL_FAILURE, '');
@@ -269,10 +266,7 @@ class AuthService {
    */
   async updateUserPassword(userId: string, password: string): Promise<void> {
     try {
-      await UserMaster.update(
-        { password: password, reset_password_token: null, reset_password_expires: null },
-        { where: { user_id: userId } }
-      );
+      await UserMaster.update({ password: password, reset_password_token: null, reset_password_expires: null }, { where: { user_id: userId } });
       return;
     } catch (error) {
       logger.error(__filename, '', '', ERROR_MESSAGE.UPDATE_PASSWORD_FAILURE, '');
@@ -282,7 +276,7 @@ class AuthService {
 
   /**
    * Send a welcome email to a new user.
-   * @param authData 
+   * @param authData
    */
   async sendWelcomeEmailWithTemplate(authData: IUserData): Promise<void> {
     try {
@@ -292,7 +286,7 @@ class AuthService {
           firstName: authData.first_name,
           lastName: authData.last_name,
           email: authData.email,
-          subject: SUCCESS_MESSAGE.SEND_WELCOME_EMAIL_SUCCESS,
+          subject: SUCCESS_MESSAGE.SEND_WELCOME_EMAIL_SUCCESS
         },
         'welcome-email.ejs'
       );
@@ -304,8 +298,8 @@ class AuthService {
 
   /**
    * Send a reset password email to a user.
-   * @param authData 
-   * @param resetToken 
+   * @param authData
+   * @param resetToken
    */
   async sendResetPasswordEmailWithTemplate(authData: IUserData, resetToken: string): Promise<void> {
     try {
@@ -316,7 +310,7 @@ class AuthService {
           lastName: authData.last_name,
           email: authData.email,
           redirectUrl: `${process.env.BACKEND_URL}/api/auth/reset-password?token=${resetToken}`,
-          subject: SUCCESS_MESSAGE.SEND_RESET_PASSWORD_EMAIL_SUCCESS,
+          subject: SUCCESS_MESSAGE.SEND_RESET_PASSWORD_EMAIL_SUCCESS
         },
         'reset-password-email.ejs'
       );
@@ -328,7 +322,7 @@ class AuthService {
 
   /**
    * Send a password set email to a user.
-   * @param authData 
+   * @param authData
    */
   async sendPasswordSetEmailWithTemplate(authData: IUserData): Promise<void> {
     try {
@@ -339,7 +333,7 @@ class AuthService {
           lastName: authData.last_name,
           email: authData.email,
           redirectUrl: `${process.env.BACKEND_URL}/api/auth/login`,
-          subject: SUCCESS_MESSAGE.SEND_PASSWORD_SET_EMAIL_SUCCESS,
+          subject: SUCCESS_MESSAGE.SEND_PASSWORD_SET_EMAIL_SUCCESS
         },
         'password-set-email.ejs'
       );

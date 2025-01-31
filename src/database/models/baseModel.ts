@@ -7,31 +7,31 @@ const addCommonFields = (fields: any) => ({
   created_at: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: DataTypes.NOW,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: DataTypes.NOW,
+    defaultValue: DataTypes.NOW
   },
   created_by: {
     type: DataTypes.UUID,
     allowNull: true,
     references: {
       model: 'user',
-      key: 'user_id',
+      key: 'user_id'
     },
-    defaultValue: null,
+    defaultValue: null
   },
   last_modified_by: {
     type: DataTypes.UUID,
     allowNull: true,
     references: {
       model: 'user',
-      key: 'user_id',
+      key: 'user_id'
     },
-    defaultValue: null,
-  },
+    defaultValue: null
+  }
 });
 
 export { addCommonFields, BaseModel };

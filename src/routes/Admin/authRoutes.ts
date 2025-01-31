@@ -33,12 +33,7 @@ router.post('/user/signup', validationMiddleware(authSchema), asyncHandler(authC
  * Doctor signup.
  * @route POST /api/auth/doctor/signup
  */
-router.post(
-  '/doctor/signup',
-  authMiddleware,
-  validationMiddleware(doctorSchema),
-  asyncHandler(authController.doctorSignup)
-);
+router.post('/doctor/signup', authMiddleware, validationMiddleware(doctorSchema), asyncHandler(authController.doctorSignup));
 
 /**
  * Handles user login.

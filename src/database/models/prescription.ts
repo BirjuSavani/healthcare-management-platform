@@ -12,62 +12,62 @@ Prescription.init(
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4
     },
     appointment_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'appointment',
-        key: 'appointment_id',
-      },
+        key: 'appointment_id'
+      }
     },
     doctor_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'user',
-        key: 'user_id',
-      },
+        key: 'user_id'
+      }
     },
     user_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'user',
-        key: 'user_id',
-      },
+        key: 'user_id'
+      }
     },
     prescription_date: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: false
     },
     diagnosis: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     medications: {
       type: DataTypes.JSONB,
-      allowNull: true,
+      allowNull: true
     },
     special_instructions: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     follow_up_recommendation: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     digital_signature: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }),
   {
     sequelize,
     tableName: 'prescription',
     modelName: 'Prescription',
-    timestamps: false,
+    timestamps: false
   }
 );
 

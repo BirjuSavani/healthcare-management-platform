@@ -13,7 +13,7 @@ export const GLOBAL_MESSAGE = {
   SERVICE_UNAVAILABLE: 'Service Unavailable',
   GATEWAY_TIMEOUT: 'Gateway Timeout',
   MISSING_REQUIRED_ENVIRONMENT_VARIABLES: 'Missing required environment variables for database configuration',
-  REQUEST_TIMEOUT: 'Request Timeout',
+  REQUEST_TIMEOUT: 'Request Timeout'
 };
 
 export const SUCCESS_MESSAGE = {
@@ -40,7 +40,7 @@ export const SUCCESS_MESSAGE = {
   SEND_WELCOME_EMAIL_SUCCESS: 'Welcome To DPA Booking!',
   SEND_RESET_PASSWORD_EMAIL_SUCCESS: 'DPA Booking - Reset Password Request',
   SEND_PASSWORD_SET_EMAIL_SUCCESS: 'DPA Booking - Password Reset Successful',
-  SEND_EMAIL_WITH_TEMPLATE_SUCCESS: 'Email sent with template successfully.',
+  SEND_EMAIL_WITH_TEMPLATE_SUCCESS: 'Email sent with template successfully.'
 };
 
 export const ERROR_MESSAGE = {
@@ -92,7 +92,7 @@ export const ERROR_MESSAGE = {
   SEND_WELCOME_EMAIL_FAILURE: 'An error occurred while sending the welcome email.',
   SEND_RESET_PASSWORD_EMAIL_FAILURE: 'An error occurred while sending the reset password email.',
   SEND_PASSWORD_SET_EMAIL_FAILURE: 'An error occurred while sending the password set email.',
-  SEND_EMAIL_WITH_TEMPLATE_FAILURE: 'An error occurred while sending the email with template.',
+  SEND_EMAIL_WITH_TEMPLATE_FAILURE: 'An error occurred while sending the email with template.'
 };
 
 export const VALIDATION_ERROR_MESSAGE = {
@@ -119,8 +119,7 @@ export const VALIDATION_ERROR_MESSAGE = {
   GENDER_INVALID: 'The selected gender is invalid.',
   IS_ACTIVE_REQUIRED: 'Please specify whether the user is active or not.',
   MEDICAL_LICENSE_NUMBER_REQUIRED: 'Please enter your medical license number.',
-  MEDICAL_LICENSE_NUMBER_INVALID:
-    'The medical license number format is invalid. Please enter a valid license number. It should be a 10 to 15 digit number.',
+  MEDICAL_LICENSE_NUMBER_INVALID: 'The medical license number format is invalid. Please enter a valid license number. It should be a 10 to 15 digit number.',
   SPECIALIZATION_REQUIRED: 'Please select your specialization.',
   QUALIFICATION_REQUIRED: 'Please enter your qualification.',
   YEAR_OF_EXPERIENCE_REQUIRED: 'Please enter your year of experience.',
@@ -134,5 +133,5 @@ export const VALIDATION_ERROR_MESSAGE = {
   SPECIALIZATION_NAME_REQUIRED: 'Please enter specialization name.',
   SPECIALIZATION_NAME_MIN_LENGTH: 'Specialization name must be at least 3 characters long.',
   SPECIALIZATION_NAME_MAX_LENGTH: 'Specialization name must not exceed 30 characters.',
-  DESCRIPTION_MAX_LENGTH: 'Description must not exceed 255 characters.',
+  DESCRIPTION_MAX_LENGTH: 'Description must not exceed 255 characters.'
 };

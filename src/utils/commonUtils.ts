@@ -30,7 +30,7 @@ export const generateToken = (userId: string, role: string) => {
     }
 
     const token = jwt.sign({ userId, role }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+      expiresIn: process.env.JWT_EXPIRES_IN
     });
     return token;
   } catch (error) {

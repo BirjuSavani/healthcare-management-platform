@@ -19,13 +19,7 @@ class UserController {
       return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.GET_USER_PROFILE, user);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.GET_USER_PROFILE, error);
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
+      return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR, error);
     }
   }
 
@@ -61,13 +55,7 @@ class UserController {
       return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.UPDATE_USER_PROFILE, updatedUser);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.UPDATE_USER_PROFILE, { userId, error });
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
+      return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR, error);
     }
   }
 }

@@ -7,6 +7,6 @@ const router: Router = Router();
  * @route POST /api/user/review
  * @access Private
  */
-router.post('/')
+router.post('/');
 
 export default router;

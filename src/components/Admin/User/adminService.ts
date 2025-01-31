@@ -22,8 +22,8 @@ class AdminService {
       const whereClause: any = {
         isDeleted: false,
         role: {
-          [Op.ne]: IRole.SUPER_ADMIN,
-        },
+          [Op.ne]: IRole.SUPER_ADMIN
+        }
       };
 
       // Apply filter
@@ -32,7 +32,7 @@ class AdminService {
           { first_name: { [Op.like]: `%${filter}%` } },
           { last_name: { [Op.like]: `%${filter}%` } },
           { email: { [Op.like]: `%${filter}%` } },
-          { role: { [Op.like]: `%${filter}%` } },
+          { role: { [Op.like]: `%${filter}%` } }
         ];
       }
 
@@ -42,11 +42,11 @@ class AdminService {
         attributes: { exclude: ['password'] },
         include: [
           { model: UserMaster, as: 'createdBy', attributes: ['first_name', 'last_name'] },
-          { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] },
+          { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] }
         ],
         order: [['created_at', 'DESC']],
         offset: (Number(page) - 1) * Number(limit),
-        limit: Number(limit),
+        limit: Number(limit)
       });
 
       return paginate(user.count, user.rows, { page: Number(page), limit: Number(limit) });
@@ -67,8 +67,8 @@ class AdminService {
         attributes: { exclude: ['password'] },
         include: [
           { model: UserMaster, as: 'createdBy', attributes: ['first_name', 'last_name'] },
-          { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] },
-        ],
+          { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] }
+        ]
       });
       return user ? (user.get({ plain: true }) as IUser) : null;
     } catch (error) {
@@ -91,7 +91,7 @@ class AdminService {
         { ...payload, password: hasPassword, last_modified_by: userId, updated_at: new Date() },
         {
           where: { user_id: updateUserId },
-          returning: true,
+          returning: true
         }
       );
 

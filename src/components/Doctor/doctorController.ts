@@ -32,13 +32,7 @@ class DoctorController {
       return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.GET_ALL_DOCTORS, doctors);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.GET_ALL_DOCTORS, error);
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
+      return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR, error);
     }
   }
 
@@ -56,13 +50,7 @@ class DoctorController {
 
       if (!doctor) {
         logger.warn(__filename, req.method, '', ERROR_MESSAGE.DOCTOR_NOT_FOUND, { doctorId });
-        return ResponseHandler.error(
-          res,
-          httpStatus.BAD_REQUEST,
-          false,
-          ERROR_MESSAGE.DOCTOR_NOT_FOUND,
-          ERROR_MESSAGE.DOCTOR_NOT_FOUND
-        );
+        return ResponseHandler.error(res, httpStatus.BAD_REQUEST, false, ERROR_MESSAGE.DOCTOR_NOT_FOUND, ERROR_MESSAGE.DOCTOR_NOT_FOUND);
       } else {
         logger.info(__filename, req.method, '', SUCCESS_MESSAGE.GET_DOCTOR_BY_ID, { doctorId });
 
@@ -91,13 +79,7 @@ class DoctorController {
 
       if (!doctor) {
         logger.warn(__filename, req.method, '', ERROR_MESSAGE.DOCTOR_NOT_FOUND, { doctorId });
-        return ResponseHandler.error(
-          res,
-          httpStatus.BAD_REQUEST,
-          false,
-          ERROR_MESSAGE.DOCTOR_NOT_FOUND,
-          ERROR_MESSAGE.DOCTOR_NOT_FOUND
-        );
+        return ResponseHandler.error(res, httpStatus.BAD_REQUEST, false, ERROR_MESSAGE.DOCTOR_NOT_FOUND, ERROR_MESSAGE.DOCTOR_NOT_FOUND);
       }
 
       // Update the doctor
@@ -133,13 +115,7 @@ class DoctorController {
       return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.DELETE_DOCTOR, null);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.DELETE_DOCTOR, { userId, error });
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
+      return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR, error);
     }
   }
 }

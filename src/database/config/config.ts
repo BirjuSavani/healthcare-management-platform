@@ -5,34 +5,23 @@ import { logger } from '../../utils/logger';
 
 dotenv.config();
 
-if (
-  !process.env.DATABASE_NAME ||
-  !process.env.DATABASE_USER ||
-  !process.env.DATABASE_PASSWORD ||
-  !process.env.DATABASE_HOST ||
-  !process.env.DATABASE_TYPE
-) {
+if (!process.env.DATABASE_NAME || !process.env.DATABASE_USER || !process.env.DATABASE_PASSWORD || !process.env.DATABASE_HOST || !process.env.DATABASE_TYPE) {
   logger.error(__filename, '', '', GLOBAL_MESSAGE.MISSING_REQUIRED_ENVIRONMENT_VARIABLES, '');
   process.exit(1); // Exit with failure
 }
 
 // sequelize config
-const sequelize: Sequelize = new Sequelize(
-  process.env.DATABASE_NAME,
-  process.env.DATABASE_USER,
-  process.env.DATABASE_PASSWORD,
-  {
-    host: process.env.DATABASE_HOST,
-    dialect: process.env.DATABASE_TYPE as Dialect,
-    logging: false,
-    retry: {
-      max: 5, // Maximum number of retries
-      match: [/SequelizeConnectionError/, /SequelizeConnectionRefusedError/], // List of error codes to retry
-      backoffBase: 100, // Initial backoff time in milliseconds
-      backoffExponent: 1, // Backoff exponent factor for each retry
-    },
+const sequelize: Sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
+  host: process.env.DATABASE_HOST,
+  dialect: process.env.DATABASE_TYPE as Dialect,
+  logging: false,
+  retry: {
+    max: 5, // Maximum number of retries
+    match: [/SequelizeConnectionError/, /SequelizeConnectionRefusedError/], // List of error codes to retry
+    backoffBase: 100, // Initial backoff time in milliseconds
+    backoffExponent: 1 // Backoff exponent factor for each retry
   }
-);
+});
 
 const connectWithRetry = async () => {
   let retries = 5;

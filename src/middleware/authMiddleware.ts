@@ -11,9 +11,9 @@ export interface CustomRequest extends Request {
   [key: string]: any;
 }
 
-interface User {
-  role: string;
-}
+// interface User {
+//   role: string;
+// }
 
 function verifyToken(token: string) {
   try {
@@ -27,12 +27,12 @@ function verifyToken(token: string) {
       userId: decoded.userId,
       role: decoded.role,
       iat: decoded.iat,
-      exp: decoded.exp,
+      exp: decoded.exp
     };
 
     return userTokenData;
   } catch (error) {
-    return null;
+    return error;
   }
 }
 
@@ -54,7 +54,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction): 
       return ResponseHandler.error(res, 401, false, GLOBAL_MESSAGE.UNAUTHORIZED, GLOBAL_MESSAGE.UNAUTHORIZED);
     }
 
-    const userTokenData = verifyToken(token);
+    const userTokenData : any = verifyToken(token);
 
     if (!userTokenData) {
       return ResponseHandler.error(res, 401, false, GLOBAL_MESSAGE.UNAUTHORIZED, GLOBAL_MESSAGE.UNAUTHORIZED);

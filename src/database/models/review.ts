@@ -11,38 +11,38 @@ Review.init(
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4
     },
     doctor_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'user',
-        key: 'user_id',
-      },
+        key: 'user_id'
+      }
     },
     user_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'user',
-        key: 'user_id',
-      },
+        key: 'user_id'
+      }
     },
     rating: {
       type: DataTypes.DECIMAL,
-      allowNull: false,
+      allowNull: false
     },
     review_text: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }),
   {
     sequelize,
     modelName: 'Review',
     tableName: 'review',
-    timestamps: false,
+    timestamps: false
   }
 );
 

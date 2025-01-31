@@ -17,7 +17,7 @@ class DoctorService {
     const {
       filter,
       page = 1,
-      limit = 10,
+      limit = 10
     } = req.query as {
       filter?: string;
       page?: string;
@@ -33,12 +33,8 @@ class DoctorService {
         isDeleted: false,
         role: IRole.DOCTOR,
         ...(filter && {
-          [Op.or]: [
-            { first_name: { [Op.like]: `%${filter}%` } },
-            { last_name: { [Op.like]: `%${filter}%` } },
-            { email: { [Op.like]: `%${filter}%` } },
-          ],
-        }),
+          [Op.or]: [{ first_name: { [Op.like]: `%${filter}%` } }, { last_name: { [Op.like]: `%${filter}%` } }, { email: { [Op.like]: `%${filter}%` } }]
+        })
       };
 
       // Fetch doctors with pagination
@@ -46,7 +42,7 @@ class DoctorService {
         include: [
           {
             model: Specialization,
-            as: 'specialization',
+            as: 'specialization'
           },
           {
             model: UserMaster,
@@ -55,14 +51,14 @@ class DoctorService {
             attributes: { exclude: ['password'] },
             include: [
               { model: UserMaster, as: 'createdBy', attributes: ['first_name', 'last_name'] },
-              { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] },
-            ],
-          },
+              { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] }
+            ]
+          }
         ],
         order: [['created_at', 'DESC']],
         offset: (pageNumber - 1) * pageSize,
         limit: pageSize,
-        nest: true,
+        nest: true
       });
 
       return paginate(userResult.count, userResult.rows, { page: pageNumber, limit: pageSize });
@@ -83,7 +79,7 @@ class DoctorService {
         include: [
           {
             model: Specialization,
-            as: 'specialization',
+            as: 'specialization'
           },
           {
             model: UserMaster,
@@ -91,13 +87,13 @@ class DoctorService {
             attributes: { exclude: ['password'] },
             include: [
               { model: UserMaster, as: 'createdBy', attributes: ['first_name', 'last_name'] },
-              { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] },
+              { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] }
             ],
-            where: { isDeleted: false },
-          },
+            where: { isDeleted: false }
+          }
         ],
         where: { user_id: doctorId },
-        nest: true,
+        nest: true
       });
 
       const doctorData = doctor?.get({ plain: true });
@@ -113,7 +109,7 @@ class DoctorService {
       return {
         user,
         user_metadata: metadata,
-        specialization,
+        specialization
       };
     } catch (error) {
       logger.error(__filename, '', '', ERROR_MESSAGE.GET_DOCTOR_BY_ID, error);
@@ -144,12 +140,12 @@ class DoctorService {
           date_of_birth: payload.date_of_birth,
           gender: payload.gender,
           isActive: payload.isActive,
-          last_modified_by: userId,
+          last_modified_by: userId
         },
         {
           where: { user_id: doctorId },
           returning: true,
-          transaction,
+          transaction
         }
       );
 
@@ -171,12 +167,12 @@ class DoctorService {
           city: payload.city,
           state: payload.state,
           country: payload.country,
-          last_modified_by: userId,
+          last_modified_by: userId
         },
         {
           where: { user_id: doctorId },
           returning: true,
-          transaction,
+          transaction
         }
       );
 
@@ -189,7 +185,7 @@ class DoctorService {
 
       return {
         user: updatedDoctors[0].get({ plain: true }),
-        meta: updatedMetaRecords[0].get({ plain: true }),
+        meta: updatedMetaRecords[0].get({ plain: true })
       } as DoctorUpdateResponse;
     } catch (error) {
       // Rollback transaction on error

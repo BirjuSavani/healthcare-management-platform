@@ -29,12 +29,7 @@ router.get('/:id', RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]), asyncHandl
  * Update user profile with role is admin or end user.
  * @route PUT /api/admin/user/:id
  */
-router.put(
-  '/:id',
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN, IRole.END_USER]),
-  validationMiddleware(updateUserSchema),
-  asyncHandler(adminController.updateUser)
-);
+router.put('/:id', RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN, IRole.END_USER]), validationMiddleware(updateUserSchema), asyncHandler(adminController.updateUser));
 
 /**
  * Delete user.

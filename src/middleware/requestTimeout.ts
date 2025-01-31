@@ -9,13 +9,7 @@ const requestTimeout = (req: Request, res: Response, next: NextFunction) => {
   const timeout: number = 60 * 1000;
 
   const timer = setTimeout(() => {
-    return ResponseHandler.error(
-      res,
-      httpStatus.REQUEST_TIMEOUT,
-      false,
-      GLOBAL_MESSAGE.REQUEST_TIMEOUT,
-      GLOBAL_MESSAGE.REQUEST_TIMEOUT
-    );
+    return ResponseHandler.error(res, httpStatus.REQUEST_TIMEOUT, false, GLOBAL_MESSAGE.REQUEST_TIMEOUT, GLOBAL_MESSAGE.REQUEST_TIMEOUT);
   }, timeout);
 
   // Clear the timeout if the request is successful

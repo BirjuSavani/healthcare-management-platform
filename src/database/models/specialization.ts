@@ -11,23 +11,23 @@ Specialization.init(
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4
     },
     specialization_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: true
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }),
   {
     sequelize,
     modelName: 'Specialization',
     tableName: 'specialization',
-    timestamps: false,
+    timestamps: false
   }
 );
 

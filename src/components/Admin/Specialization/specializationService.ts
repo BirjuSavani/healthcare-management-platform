@@ -48,11 +48,11 @@ class SpecializationService {
       const specializations = await Specialization.findAndCountAll({
         include: [
           { model: UserMaster, as: 'createdBy', attributes: ['first_name', 'last_name'] },
-          { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] },
+          { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] }
         ],
         order: [['created_at', 'DESC']],
         offset: (Number(page) - 1) * Number(limit),
-        limit: Number(limit),
+        limit: Number(limit)
       });
 
       return paginate(specializations.count, specializations.rows, { page: Number(page), limit: Number(limit) });
@@ -73,8 +73,8 @@ class SpecializationService {
         where: { specialization_id: specializationId },
         include: [
           { model: UserMaster, as: 'createdBy', attributes: ['first_name', 'last_name'] },
-          { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] },
-        ],
+          { model: UserMaster, as: 'lastModifiedBy', attributes: ['first_name', 'last_name'] }
+        ]
       });
       return specialization ? specialization.get({ plain: true }) : null;
     } catch (error) {
@@ -90,11 +90,7 @@ class SpecializationService {
    * @param userId User updating the specialization
    * @returns ISpecialization
    */
-  async updateSpecialization(
-    specializationId: string,
-    payload: ISpecializationPayload,
-    userId: string
-  ): Promise<ISpecialization> {
+  async updateSpecialization(specializationId: string, payload: ISpecializationPayload, userId: string): Promise<ISpecialization> {
     try {
       const specialization = await Specialization.findByPk(specializationId);
       if (!specialization) {

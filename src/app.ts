@@ -21,7 +21,7 @@ app.use(
   cors({
     origin: 'http://localhost:5173', // Your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow only GET and POST methods
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization']
   })
 );
 
@@ -33,19 +33,13 @@ routes(app);
 
 // Base route to health check
 app.get('/health', (req: Request, res: Response): any => {
-	return res.status(200).send('healthy')
-})
+  return ResponseHandler.success(res, httpStatus.OK, true, 'health', 'Healthy');
+});
 
 // Handle invalid routes
 app.all('/*', (req: Request, res: Response): any => {
   logger.error(__filename, 'Invalid Route Handler', '', 'Invalid Route Fired : ' + req.path, {});
-  return ResponseHandler.error(
-    res,
-    httpStatus.BAD_REQUEST,
-    false,
-    GLOBAL_MESSAGE.BAD_REQUEST,
-    GLOBAL_MESSAGE.BAD_REQUEST
-  );
+  return ResponseHandler.error(res, httpStatus.BAD_REQUEST, false, GLOBAL_MESSAGE.BAD_REQUEST, GLOBAL_MESSAGE.BAD_REQUEST);
 });
 
 export default app;

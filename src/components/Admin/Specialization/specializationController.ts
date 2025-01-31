@@ -5,11 +5,7 @@ import { CustomRequest } from '../../../middleware/authMiddleware';
 import { ResponseHandler } from '../../../utils/helper';
 import { IApiResponse } from '../../../utils/helper/interface/responseInterface';
 import { logger } from '../../../utils/logger';
-import {
-  ISpecializationPayload,
-  SpecializationListResponse,
-  SpecializationResponse,
-} from './interface/specializationInterface';
+import { ISpecializationPayload, SpecializationListResponse, SpecializationResponse } from './interface/specializationInterface';
 import specializationService from './specializationService';
 
 class SpecializationController {
@@ -31,13 +27,7 @@ class SpecializationController {
       // Throw error if specialization already exists
       if (existingSpecialization) {
         logger.warn(__filename, req.method, '', ERROR_MESSAGE.SPECIALIZATION_ALREADY_EXISTS, payload.specialization_name);
-        return ResponseHandler.error(
-          res,
-          httpStatus.CONFLICT,
-          false,
-          ERROR_MESSAGE.SPECIALIZATION_ALREADY_EXISTS,
-          null
-        );
+        return ResponseHandler.error(res, httpStatus.CONFLICT, false, ERROR_MESSAGE.SPECIALIZATION_ALREADY_EXISTS, null);
       }
 
       // Create specialization
@@ -45,13 +35,7 @@ class SpecializationController {
 
       logger.info(__filename, req.method, '', SUCCESS_MESSAGE.CREATE_SPECIALIZATION, specialization.specialization_id);
 
-      return ResponseHandler.success(
-        res,
-        httpStatus.CREATED,
-        true,
-        SUCCESS_MESSAGE.CREATE_SPECIALIZATION,
-        specialization
-      );
+      return ResponseHandler.success(res, httpStatus.CREATED, true, SUCCESS_MESSAGE.CREATE_SPECIALIZATION, specialization);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.CREATE_SPECIALIZATION, error);
       return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR);
@@ -76,22 +60,10 @@ class SpecializationController {
 
       logger.info(__filename, req.method, '', SUCCESS_MESSAGE.GET_ALL_SPECIALIZATIONS, '');
 
-      return ResponseHandler.success(
-        res,
-        httpStatus.OK,
-        true,
-        SUCCESS_MESSAGE.GET_ALL_SPECIALIZATIONS,
-        specializations
-      );
+      return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.GET_ALL_SPECIALIZATIONS, specializations);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.GET_ALL_SPECIALIZATIONS, error);
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
+      return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR, error);
     }
   }
 
@@ -119,30 +91,12 @@ class SpecializationController {
       // Update the specialization
       const updatedSpecialization = await specializationService.updateSpecialization(specializationId, payload, userId);
 
-      logger.info(
-        __filename,
-        req.method,
-        '',
-        SUCCESS_MESSAGE.UPDATE_SPECIALIZATION,
-        updatedSpecialization.specialization_id
-      );
+      logger.info(__filename, req.method, '', SUCCESS_MESSAGE.UPDATE_SPECIALIZATION, updatedSpecialization.specialization_id);
 
-      return ResponseHandler.success(
-        res,
-        httpStatus.OK,
-        true,
-        SUCCESS_MESSAGE.UPDATE_SPECIALIZATION,
-        updatedSpecialization
-      );
+      return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.UPDATE_SPECIALIZATION, updatedSpecialization);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.UPDATE_SPECIALIZATION, { specializationId, error });
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
+      return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR, error);
     }
   }
 
@@ -164,30 +118,12 @@ class SpecializationController {
         return ResponseHandler.error(res, httpStatus.NOT_FOUND, false, ERROR_MESSAGE.SPECIALIZATION_NOT_FOUND, null);
       }
 
-      logger.info(
-        __filename,
-        req.method,
-        '',
-        SUCCESS_MESSAGE.GET_SPECIALIZATION_BY_ID,
-        specialization.specialization_id
-      );
+      logger.info(__filename, req.method, '', SUCCESS_MESSAGE.GET_SPECIALIZATION_BY_ID, specialization.specialization_id);
 
-      return ResponseHandler.success(
-        res,
-        httpStatus.OK,
-        true,
-        SUCCESS_MESSAGE.GET_SPECIALIZATION_BY_ID,
-        specialization
-      );
+      return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.GET_SPECIALIZATION_BY_ID, specialization);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.GET_SPECIALIZATION_BY_ID, { specializationId, error });
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
+      return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR, error);
     }
   }
 
@@ -209,24 +145,12 @@ class SpecializationController {
         return ResponseHandler.error(res, httpStatus.NOT_FOUND, false, ERROR_MESSAGE.SPECIALIZATION_NOT_FOUND, null);
       }
 
-      logger.info(
-        __filename,
-        req.method,
-        '',
-        SUCCESS_MESSAGE.DELETE_SPECIALIZATION,
-        deletedSpecialization.specialization_id
-      );
+      logger.info(__filename, req.method, '', SUCCESS_MESSAGE.DELETE_SPECIALIZATION, deletedSpecialization.specialization_id);
 
       return ResponseHandler.success(res, httpStatus.OK, true, SUCCESS_MESSAGE.DELETE_SPECIALIZATION, null);
     } catch (error) {
       logger.error(__filename, req.method, '', ERROR_MESSAGE.DELETE_SPECIALIZATION, { specializationId, error });
-      return ResponseHandler.error(
-        res,
-        httpStatus.INTERNAL_SERVER_ERROR,
-        false,
-        GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR,
-        error
-      );
+      return ResponseHandler.error(res, httpStatus.INTERNAL_SERVER_ERROR, false, GLOBAL_MESSAGE.INTERNAL_SERVER_ERROR, error);
     }
   }
 }

@@ -37,11 +37,6 @@ router.put(
  * Delete doctor
  * @route DELETE /api/doctor/:id
  */
-router.delete(
-  '/:id',
-  authMiddleware,
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN, IRole.DOCTOR]),
-  asyncHandler(doctorController.deleteDoctor)
-);
+router.delete('/:id', authMiddleware, RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN, IRole.DOCTOR]), asyncHandler(doctorController.deleteDoctor));
 
 export default router;

@@ -7,7 +7,7 @@ import ReviewRouter from './reviewRoutes';
 const router: Router = Router();
 
 const ROUTES = {
-  REVIEW: '/review',
+  REVIEW: '/review'
 };
 
 router.use(ROUTES.REVIEW, ReviewRouter);

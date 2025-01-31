@@ -10,71 +10,71 @@ UserMaster.init(
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4
     },
     first_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     last_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     profile_image: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: true
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     phone_number: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: true
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     date_of_birth: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: false
     },
     gender: {
       type: DataTypes.ENUM,
       allowNull: false,
-      values: ['male', 'female', 'other'],
+      values: ['male', 'female', 'other']
     },
     isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: true,
+      defaultValue: true
     },
     isDeleted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false,
+      defaultValue: false
     },
     reset_password_token: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     reset_password_expires: {
       type: DataTypes.DATE,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }),
   {
     sequelize,
     modelName: 'User',
     tableName: 'user',
-    timestamps: false,
+    timestamps: false
   }
 );
 

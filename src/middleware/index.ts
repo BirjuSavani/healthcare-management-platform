@@ -14,7 +14,7 @@ export default (app: Application) => {
       query: req.query,
       params: req.params,
       body: sanitizeRequestBody(req.body),
-      headers: req.headers,
+      headers: req.headers
     });
     next();
   });

@@ -8,14 +8,7 @@ import { ResponseHandler } from '../../utils/helper';
 import { IApiResponse } from '../../utils/helper/interface/responseInterface';
 import { logger } from '../../utils/logger';
 import AuthService from './authService';
-import {
-  AuthResponse,
-  IAuthPayload,
-  IDoctorPayload,
-  ILoginPayload,
-  IUserData,
-  LoginResponse,
-} from './interface/authInterface';
+import { AuthResponse, IAuthPayload, IDoctorPayload, ILoginPayload, IUserData, LoginResponse } from './interface/authInterface';
 
 class AuthController {
   /**
@@ -28,19 +21,10 @@ class AuthController {
       const payload: IAuthPayload = req.body;
 
       // Check if email already exists or phone number already exists
-      const [existingUser, existingPhoneNumber] = await Promise.all([
-        AuthService.findByEmail(payload.email),
-        AuthService.findByPhoneNumber(payload.phone_number),
-      ]);
+      const [existingUser, existingPhoneNumber] = await Promise.all([AuthService.findByEmail(payload.email), AuthService.findByPhoneNumber(payload.phone_number)]);
 
       if (existingUser) {
-        return ResponseHandler.error(
-          res,
-          httpStatus.CONFLICT,
-          false,
-          ERROR_MESSAGE.EMAIL_ALREADY_EXISTS,
-          `${ERROR_MESSAGE.EMAIL_ALREADY_EXISTS} ${payload.email}`
-        );
+        return ResponseHandler.error(res, httpStatus.CONFLICT, false, ERROR_MESSAGE.EMAIL_ALREADY_EXISTS, `${ERROR_MESSAGE.EMAIL_ALREADY_EXISTS} ${payload.email}`);
       }
 
       if (existingPhoneNumber) {
@@ -56,7 +40,7 @@ class AuthController {
       // Hash password and create user
       const hashPassword = await convertPlainTextToHash(payload.password);
 
-      let authData = await AuthService.signup(payload, hashPassword, userId);
+      const authData = await AuthService.signup(payload, hashPassword, userId);
 
       logger.info(__filename, '', '', SUCCESS_MESSAGE.SIGNUP, { userEmail: payload.email });
 
@@ -86,13 +70,7 @@ class AuthController {
       const isMatch = await comparePassword(payload.password, authData.password);
 
       if (!isMatch) {
-        return ResponseHandler.error(
-          res,
-          httpStatus.UNAUTHORIZED,
-          false,
-          ERROR_MESSAGE.INVALID_CREDENTIALS,
-          ERROR_MESSAGE.INVALID_CREDENTIALS
-        );
+        return ResponseHandler.error(res, httpStatus.UNAUTHORIZED, false, ERROR_MESSAGE.INVALID_CREDENTIALS, ERROR_MESSAGE.INVALID_CREDENTIALS);
       }
 
       // Generate JWT token
@@ -102,7 +80,7 @@ class AuthController {
 
       const authResponse = {
         token,
-        user: { ...authData, password: undefined }, // Exclude password from response
+        user: { ...authData, password: undefined } // Exclude password from response
       };
 
       void AuthService.sendWelcomeEmailWithTemplate(authData);
@@ -125,19 +103,10 @@ class AuthController {
       const doctorPayload: IDoctorPayload = req.body;
 
       // Check if email already exists or phone number already exists
-      const [existingUser, existingPhoneNumber] = await Promise.all([
-        AuthService.findByEmail(doctorPayload.email),
-        AuthService.findByPhoneNumber(doctorPayload.phone_number),
-      ]);
+      const [existingUser, existingPhoneNumber] = await Promise.all([AuthService.findByEmail(doctorPayload.email), AuthService.findByPhoneNumber(doctorPayload.phone_number)]);
 
       if (existingUser) {
-        return ResponseHandler.error(
-          res,
-          httpStatus.CONFLICT,
-          false,
-          ERROR_MESSAGE.EMAIL_ALREADY_EXISTS,
-          `${ERROR_MESSAGE.EMAIL_ALREADY_EXISTS} ${doctorPayload.email}`
-        );
+        return ResponseHandler.error(res, httpStatus.CONFLICT, false, ERROR_MESSAGE.EMAIL_ALREADY_EXISTS, `${ERROR_MESSAGE.EMAIL_ALREADY_EXISTS} ${doctorPayload.email}`);
       }
 
       if (existingPhoneNumber) {
@@ -154,7 +123,7 @@ class AuthController {
       const hashPassword = await convertPlainTextToHash(doctorPayload.password);
 
       // Create user
-      let authData = await AuthService.doctorSignup(doctorPayload, hashPassword, userId);
+      await AuthService.doctorSignup(doctorPayload, hashPassword, userId);
 
       logger.info(__filename, '', '', SUCCESS_MESSAGE.SIGNUP, { userEmail: payload.email });
 
@@ -167,9 +136,9 @@ class AuthController {
 
   /**
    * Handles user password reset.
-   * @param req 
-   * @param res 
-   * @returns 
+   * @param req
+   * @param res
+   * @returns
    */
   async forgetPassword(req: Request, res: Response): Promise<IApiResponse> {
     try {
@@ -184,7 +153,7 @@ class AuthController {
 
       // Generate a secure resent token
       const resetToken = crypto.randomBytes(20).toString('hex');
-      const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+      // const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
       const resetTokenExpiry = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
 
       // Update user with reset token and expiry
@@ -206,9 +175,9 @@ class AuthController {
 
   /**
    * Resets user password.
-   * @param req 
-   * @param res 
-   * @returns 
+   * @param req
+   * @param res
+   * @returns
    */
   async resetPassword(req: Request, res: Response): Promise<IApiResponse> {
     try {
@@ -220,7 +189,7 @@ class AuthController {
       if (!token) {
         return ResponseHandler.error(res, httpStatus.NOT_FOUND, false, ERROR_MESSAGE.RESET_PASSWORD_TOKEN_EXPIRED);
       }
-      
+
       const user = await AuthService.findByResetToken(token as string);
 
       if (!user) {
@@ -228,7 +197,10 @@ class AuthController {
       }
 
       // Hash the provided token to compare with DB
-      const hashedToken = crypto.createHash('sha256').update(token as string).digest('hex');
+      const hashedToken = crypto
+        .createHash('sha256')
+        .update(token as string)
+        .digest('hex');
 
       // generate password
       const hashPassword = await convertPlainTextToHash(newPassword);

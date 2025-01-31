@@ -2,18 +2,12 @@ import { Response as ExpressResponse } from 'express';
 import { IApiResponse } from './interface/responseInterface';
 
 export class ResponseHandler {
-  static success<T>(
-    res: ExpressResponse,
-    statusCode: number,
-    success: boolean,
-    message: string,
-    data: T
-  ): IApiResponse<T> {
+  static success<T>(res: ExpressResponse, statusCode: number, success: boolean, message: string, data: T): IApiResponse<T> {
     const response = {
       statusCode,
       success,
       message,
-      data,
+      data
     };
     res.status(statusCode).json(response);
     return response;
@@ -24,7 +18,7 @@ export class ResponseHandler {
       statusCode,
       success: false,
       message,
-      error,
+      error
     };
     res.status(statusCode).json(response);
     return response;

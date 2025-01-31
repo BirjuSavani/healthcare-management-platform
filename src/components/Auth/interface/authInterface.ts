@@ -48,7 +48,7 @@ export enum IRole {
   SUPER_ADMIN = 'superadmin',
   ADMIN = 'admin',
   DOCTOR = 'doctor',
-  END_USER = 'enduser',
+  END_USER = 'enduser'
 }
 
 export type AuthResponse = Promise<IApiResponse<IUserData>>;

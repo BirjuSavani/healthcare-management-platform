@@ -28,6 +28,6 @@ export function paginate<T>(count: number, rows: T[], paginationOptions: Paginat
     total: count,
     page,
     limit,
-    totalPages: Math.ceil(count / limit),
+    totalPages: Math.ceil(count / limit)
   };
 }

@@ -17,7 +17,7 @@ class Logging {
     datePattern: 'YYYY-MM-DD',
     zippedArchive: true,
     maxSize: '20m',
-    maxFiles: '7d',
+    maxFiles: '7d'
   });
 
   public myFormat = printf(({ level, message }) => {
@@ -31,16 +31,16 @@ class Logging {
     this.logger = createLogger({
       format: combine(
         format.timestamp({
-          format: () => moment.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss'),
+          format: () => moment.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')
         }),
         format.json()
       ),
       transports: [
         this.transport,
         new transports.Console({
-          format: format.combine(format.colorize(), this.myFormat),
-        }),
-      ],
+          format: format.combine(format.colorize(), this.myFormat)
+        })
+      ]
     });
   }
 

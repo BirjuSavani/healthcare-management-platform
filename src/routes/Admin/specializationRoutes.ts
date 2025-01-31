@@ -17,56 +17,34 @@ router.use(authMiddleware);
  * Allowed roles: Super Admin, Admin
  * @route POST /api/admin/specialization
  */
-router.post(
-  '/',
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]),
-  validationMiddleware(specializationSchema),
-  asyncHandler(specializationController.createSpecialization)
-);
+router.post('/', RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]), validationMiddleware(specializationSchema), asyncHandler(specializationController.createSpecialization));
 
 /**
  * Get all specializations.
  * Allowed roles: Super Admin, Admin
  * @route GET /api/admin/specializations
  */
-router.get(
-  '/',
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]),
-  asyncHandler(specializationController.getAllSpecializations)
-);
+router.get('/', RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]), asyncHandler(specializationController.getAllSpecializations));
 
 /**
  * Update a specialization.
  * Allowed roles: Super Admin, Admin
  * @route PUT /api/admin/specialization/:id
  */
-router.put(
-  '/:id',
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]),
-  validationMiddleware(specializationSchema),
-  asyncHandler(specializationController.updateSpecialization)
-);
+router.put('/:id', RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]), validationMiddleware(specializationSchema), asyncHandler(specializationController.updateSpecialization));
 
 /**
  * Get a specialization by ID.
  * Allowed roles: Super Admin, Admin
  * @route GET /api/admin/specialization/:id
  */
-router.get(
-  '/:id',
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]),
-  asyncHandler(specializationController.getSpecializationById)
-);
+router.get('/:id', RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]), asyncHandler(specializationController.getSpecializationById));
 
 /**
  * Delete a specialization.
  * Allowed roles: Super Admin, Admin
  * @route DELETE /api/admin/specialization/:id
  */
-router.delete(
-  '/:id',
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]),
-  asyncHandler(specializationController.deleteSpecialization)
-);
+router.delete('/:id', RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN]), asyncHandler(specializationController.deleteSpecialization));
 
 export default router;

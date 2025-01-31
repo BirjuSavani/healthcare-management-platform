@@ -6,7 +6,7 @@ const router: Router = Router();
 
 const ROUTES = {
   SPECIALIZATION: '/specialization',
-  USER: '/users',
+  USER: '/users'
 };
 
 /**

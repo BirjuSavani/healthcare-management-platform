@@ -15,8 +15,8 @@ class Email {
       service: process.env.EMAIL_SERVICE,
       auth: {
         user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
-      },
+        pass: process.env.EMAIL_PASSWORD
+      }
     });
   }
 
@@ -30,16 +30,16 @@ class Email {
       logger.info(__filename, '', '', SUCCESS_MESSAGE.SEND_EMAIL_WITH_TEMPLATE_SUCCESS, {
         email: emailData.email,
         subject: emailData.subject,
-        templatePath,
+        templatePath
       });
-      
+
       // Send email with SMTP
       return this.sendEmail({ ...emailData, template, ...options });
     } catch (error: any) {
       logger.error(__filename, '', '', ERROR_MESSAGE.SEND_EMAIL_WITH_TEMPLATE_FAILURE, {
         templatePath,
         email: emailData.email,
-        error: error.message,
+        error: error.message
       });
       throw new Error(`${ERROR_MESSAGE.SEND_EMAIL_WITH_TEMPLATE_FAILURE}: ${error.message}`);
     }
@@ -52,21 +52,21 @@ class Email {
         to: sendEmailData.email,
         subject: sendEmailData.subject,
         html: sendEmailData.template,
-        attachments: sendEmailData.attachments || [],
+        attachments: sendEmailData.attachments || []
       };
 
       const info = await this.transporter.sendMail(mailOptions);
 
       logger.info(__filename, '', '', SUCCESS_MESSAGE.SEND_EMAIL_SUCCESS, {
         email: sendEmailData.email,
-        subject: sendEmailData.subject,
+        subject: sendEmailData.subject
       });
 
       return info;
     } catch (error: any) {
       logger.error(__filename, '', '', ERROR_MESSAGE.SEND_EMAIL_FAILURE, {
         email: sendEmailData.email,
-        error: error.message,
+        error: error.message
       });
       throw new Error(`${ERROR_MESSAGE.SEND_EMAIL_FAILURE}: ${error}`);
     }
