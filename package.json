@@ -1,0 +1,89 @@
+{
+  "name": "dpa-booking",
+  "version": "1.0.0",
+  "description": "Doctor patient appointment booking application",
+  "main": "src/server.ts",
+  "author": "Birju_Savani",
+  "license": "MIT",
+  "engines": {
+    "node": "20.10.0",
+    "npm": "10.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BirjuSavani/healthcare-management-platform.git"
+  },
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev:tsc": "tsc -w",
+    "dev:node": "node --watch --env-file .env build/server.js",
+    "dev": "npm run format:check && npm run lint:check && concurrently npm:dev:*",
+    "build": "bash -c tsc -p tsconfig.json --noEmit",
+    "prod": "NODE_ENV=production npm run build && npm run start",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint --fix .",
+    "lint:check": "eslint \"./src/**/*.ts\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migration:up": "npx sequelize-cli db:migrate --url",
+    "migration:down": "npx sequelize-cli db:migrate:undo --url",
+    "migration:reset": "npx sequelize-cli db:migrate:undo:all --",
+    "seeder:up": "npx sequelize-cli db:seed:all --",
+    "seeder:down": "npx sequelize-cli db:seed:undo:all --",
+    "format:check": "prettier --check \"./src/**/*.ts\"",
+    "format:write": "prettier --write \"./src/**/*.ts\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "http-status": "^2.0.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "moment-timezone": "^0.5.46",
+    "nodemailer": "^6.10.0",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
+    "sequelize-cli": "^6.6.2",
+    "uuid": "^11.0.3",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/dotenv": "^6.1.1",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.0",
+    "@types/http-status": "^0.2.30",
+    "@types/joi": "^17.2.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/moment-timezone": "^0.5.13",
+    "@types/node": "^22.10.1",
+    "@types/nodemailer": "^6.4.17",
+    "@types/sequelize": "^4.28.20",
+    "@types/uuid": "^10.0.0",
+    "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.4.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "concurrently": "^9.0.1",
+    "eslint": "^9.11.1"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "npm run build",
+      "git add --all"
+    ]
+  }
+}

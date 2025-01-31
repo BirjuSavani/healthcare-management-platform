@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: healthcare-db
+    restart: always
+    environment:
+      - POSTGRES_DB=healthcare_appt
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d healthcare_appt"]
+      interval: 5s
+      retries: 5
+      timeout: 3s
+
+  app:
+    build: .
+    container_name: healthcare-app
+    restart: always
+    ports:
+      - "2000:2000"
+    depends_on:
+      - postgres
+    environment:
+      - NODE_ENV=production
+      - PORT=2000
+      - JWT_SECRET=HE@LTHCARE_APPT
+      - JWT_EXPIRES_IN=30d
+      - DATABASE_NAME=healthcare_appt
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=12345
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_TYPE=postgres
+      - EMAIL_HOST=smtp.gmail.com
+      - EMAIL_PORT=587
+      - EMAIL_SERVICE=gmail
+      - EMAIL_USERNAME=birju.savani@ics-global.in
+      - EMAIL_PASSWORD=pnya mkdt wtiu isne
+      - EMAIL_FROM=birju.savani@ics-global.in
+      - BACKEND_URL=http://app:2000
+    command: ["/bin/sh", "-c", "npx sequelize-cli db:migrate && node dist/server.js"]
+
+volumes:
+  pgdata:
