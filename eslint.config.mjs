@@ -1,41 +1,36 @@
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
 import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
+  allConfig: js.configs.all
 });
 
 export default [
-  ...compat.extends(
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier'
-  ),
+  ...compat.extends('eslint:recommended', 'plugin:@typescript-eslint/eslint-recommended', 'plugin:@typescript-eslint/recommended', 'prettier'),
   {
     plugins: {
       '@typescript-eslint': typescriptEslint,
-      prettier,
+      prettier
     },
 
     languageOptions: {
       globals: {
-        ...globals.node,
+        ...globals.node
       },
 
       parser: tsParser,
       ecmaVersion: 2018,
-      sourceType: 'module',
+      sourceType: 'module'
     },
 
     rules: {
@@ -46,8 +41,8 @@ export default [
         'single',
         {
           avoidEscape: true,
-          allowTemplateLiterals: true,
-        },
+          allowTemplateLiterals: true
+        }
       ],
 
       '@typescript-eslint/no-explicit-any': 'off',
@@ -55,7 +50,7 @@ export default [
       'no-useless-escape': 'off',
       'no-prototype-builtins': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-unused-vars': 'error',
-    },
-  },
+      '@typescript-eslint/no-unused-vars': 'error'
+    }
+  }
 ];
