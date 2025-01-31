@@ -4,7 +4,6 @@
   "description": "Doctor patient appointment booking application",
   "main": "src/server.ts",
   "author": "Birju_Savani",
-  "type": "module",
   "license": "MIT",
   "engines": {
     "node": "20.10.0",
