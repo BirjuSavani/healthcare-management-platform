@@ -14,9 +14,9 @@
     "url": "git+https://github.com/BirjuSavani/healthcare-management-platform.git"
   },
   "scripts": {
-    "start": "npx tsc && node dist/server.js",
+    "start": "node dist/server.js",
     "dev": "NODE_ENV=development nodemon --watch src --exec ./node_modules/.bin/ts-node src/server.ts",
-    "build": "npx tsc",
+    "build": "tsc",
     "prod": "NODE_ENV=production npm run build && npm run start",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
