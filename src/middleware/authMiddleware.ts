@@ -54,7 +54,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction): 
       return ResponseHandler.error(res, 401, false, GLOBAL_MESSAGE.UNAUTHORIZED, GLOBAL_MESSAGE.UNAUTHORIZED);
     }
 
-    const userTokenData : any = verifyToken(token);
+    const userTokenData: any = verifyToken(token);
 
     if (!userTokenData) {
       return ResponseHandler.error(res, 401, false, GLOBAL_MESSAGE.UNAUTHORIZED, GLOBAL_MESSAGE.UNAUTHORIZED);

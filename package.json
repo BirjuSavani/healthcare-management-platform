@@ -16,10 +16,10 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev:tsc": "tsc -w",
-    "dev:node": "node --watch --env-file .env build/server.js",
+    "dev:node": "node --watch --env-file .env dist/server.js",
     "dev": "npm run format:check && npm run lint:check && concurrently npm:dev:*",
     "build": "bash -c tsc -p tsconfig.json --noEmit",
-    "prod": "NODE_ENV=production npm run build && npm run start",
+    "prod": "NODE_ENV=production npm run dist && npm run start",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint --fix .",
     "lint:check": "eslint \"./src/**/*.ts\"",
@@ -69,6 +69,8 @@
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.7",
@@ -76,9 +78,7 @@
     "nodemon": "^3.1.7",
     "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3",
-    "concurrently": "^9.0.1",
-    "eslint": "^9.11.1"
+    "typescript": "^5.7.3"
   },
   "lint-staged": {
     "*.{js,ts}": [
