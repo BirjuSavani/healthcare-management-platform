@@ -62,7 +62,7 @@
     "@types/express": "^5.0.0",
     "@types/http-status": "^0.2.30",
     "@types/joi": "^17.2.2",
-    "@types/jsonwebtoken": "^9.0.7",
+    "@types/jsonwebtoken": "^9.0.8",
     "@types/moment-timezone": "^0.5.13",
     "@types/node": "^22.10.1",
     "@types/nodemailer": "^6.4.17",
