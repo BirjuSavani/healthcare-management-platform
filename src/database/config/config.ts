@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
-import { Dialect, Sequelize } from 'sequelize';
+// import { Dialect, Sequelize } from 'sequelize';
+import { setTimeout } from 'timers';
 import { GLOBAL_MESSAGE } from '../../constant/message';
 import { logger } from '../../utils/logger';
-import { setTimeout } from 'timers';
+import { Sequelize } from 'sequelize';
 
 dotenv.config();
 
@@ -11,16 +12,26 @@ if (!process.env.DATABASE_NAME || !process.env.DATABASE_USER || !process.env.DAT
   process.exit(1); // Exit with failure
 }
 
-// sequelize config
-const sequelize: Sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
-  host: process.env.DATABASE_HOST,
-  dialect: process.env.DATABASE_TYPE as Dialect,
-  logging: false,
-  retry: {
-    max: 5, // Maximum number of retries
-    match: [/SequelizeConnectionError/, /SequelizeConnectionRefusedError/], // List of error codes to retry
-    backoffBase: 100, // Initial backoff time in milliseconds
-    backoffExponent: 1 // Backoff exponent factor for each retry
+// // sequelize config
+// const sequelize: Sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
+//   host: process.env.DATABASE_HOST,
+//   dialect: process.env.DATABASE_TYPE as Dialect,
+//   logging: false,
+//   retry: {
+//     max: 5, // Maximum number of retries
+//     match: [/SequelizeConnectionError/, /SequelizeConnectionRefusedError/], // List of error codes to retry
+//     backoffBase: 100, // Initial backoff time in milliseconds
+//     backoffExponent: 1 // Backoff exponent factor for each retry
+//   }
+// });
+
+const sequelize: Sequelize = new Sequelize(process.env.DATABASE_URL as string, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
   }
 });
 
