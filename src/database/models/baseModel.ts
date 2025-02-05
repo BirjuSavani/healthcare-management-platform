@@ -2,7 +2,8 @@ import { DataTypes, Model } from 'sequelize';
 
 class BaseModel extends Model {}
 
-const addCommonFields = (fields: any) => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const addCommonFields = (fields: any): any => ({
   ...fields,
   created_at: {
     type: DataTypes.DATE,

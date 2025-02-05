@@ -2,7 +2,7 @@ import { Application, NextFunction, Request, Response } from 'express';
 import { logger } from '../utils/logger';
 import requestTimeout from './requestTimeout';
 
-export default (app: Application) => {
+export default (app: Application): void => {
   // Apply requestTimeout middleware
   app.use(requestTimeout);
 
@@ -25,7 +25,7 @@ export default (app: Application) => {
  * @param body - Request body to be sanitized
  * @returns Sanitized body
  */
-function sanitizeRequestBody(body: any) {
+function sanitizeRequestBody(body: any): string {
   // Remove sensitive data, such as passwords, from the request body
   if (body) {
     const sanitizedBody = { ...body };

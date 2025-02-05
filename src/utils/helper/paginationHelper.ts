@@ -1,11 +1,11 @@
 // utils/helper/paginationHelper.ts
 
-export interface PaginationOptions {
+export interface IPaginationOptions {
   page: number;
   limit: number;
 }
 
-export interface PaginatedResponse<T> {
+export interface IPaginatedResponse<T> {
   total: number;
   page: number;
   limit: number;
@@ -20,7 +20,7 @@ export interface PaginatedResponse<T> {
  * @param paginationOptions - Pagination options: page and limit
  * @returns Paginated response with metadata and data
  */
-export function paginate<T>(count: number, rows: T[], paginationOptions: PaginationOptions): PaginatedResponse<T> {
+export function paginate<T>(count: number, rows: T[], paginationOptions: IPaginationOptions): IPaginatedResponse<T> {
   const { page, limit } = paginationOptions;
 
   return {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { ERROR_MESSAGE, GLOBAL_MESSAGE, SUCCESS_MESSAGE } from '../../../constant/message';
-import { CustomRequest } from '../../../middleware/authMiddleware';
+import { ICustomRequest } from '../../../middleware/authMiddleware';
 import { ResponseHandler } from '../../../utils/helper';
 import { IApiResponse } from '../../../utils/helper/interface/responseInterface';
 import { logger } from '../../../utils/logger';
@@ -16,7 +16,7 @@ class SpecializationController {
    * @returns ISpecializationResponse
    */
   async createSpecialization(req: Request, res: Response): SpecializationResponse {
-    const { userId } = req as CustomRequest;
+    const { userId } = req as ICustomRequest;
 
     try {
       const payload: ISpecializationPayload = req.body;
@@ -74,7 +74,7 @@ class SpecializationController {
    * @returns ISpecializationResponse
    */
   async updateSpecialization(req: Request, res: Response): SpecializationResponse {
-    const { userId } = req as CustomRequest;
+    const { userId } = req as ICustomRequest;
     const specializationId = req.params.id;
 
     try {

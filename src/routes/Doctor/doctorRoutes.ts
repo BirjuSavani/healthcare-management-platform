@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { updateDoctorSchema } from '../../components/Auth/authValidation';
-import { IRole } from '../../components/Auth/interface/authInterface';
+import { Role } from '../../components/Auth/interface/authInterface';
 import doctorController from '../../components/Doctor/doctorController';
 import authMiddleware from '../../middleware/authMiddleware';
 import validationMiddleware from '../../middleware/joiMiddleware';
@@ -29,7 +29,7 @@ router.put(
   '/:id',
   authMiddleware,
   validationMiddleware(updateDoctorSchema),
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN, IRole.DOCTOR]),
+  RoleBasedAccess([Role.SUPER_ADMIN, Role.ADMIN, Role.DOCTOR]),
   asyncHandler(doctorController.updateDoctorProfile)
 );
 
@@ -37,6 +37,6 @@ router.put(
  * Delete doctor
  * @route DELETE /api/doctor/:id
  */
-router.delete('/:id', authMiddleware, RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN, IRole.DOCTOR]), asyncHandler(doctorController.deleteDoctor));
+router.delete('/:id', authMiddleware, RoleBasedAccess([Role.SUPER_ADMIN, Role.ADMIN, Role.DOCTOR]), asyncHandler(doctorController.deleteDoctor));
 
 export default router;

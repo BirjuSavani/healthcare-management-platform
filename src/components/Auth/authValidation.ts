@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { VALIDATION_ERROR_MESSAGE } from '../../constant/message';
-import { IRole } from './interface/authInterface';
+import { Role } from './interface/authInterface';
 
 export const authSchema = Joi.object({
   first_name: Joi.string().min(3).max(30).required().messages({
@@ -34,7 +34,7 @@ export const authSchema = Joi.object({
     'string.max': VALIDATION_ERROR_MESSAGE.PHONE_NUMBER_INVALID,
     'any.required': VALIDATION_ERROR_MESSAGE.PHONE_NUMBER_REQUIRED
   }),
-  role: Joi.string().valid(IRole.ADMIN, IRole.DOCTOR, IRole.END_USER).optional().messages({
+  role: Joi.string().valid(Role.ADMIN, Role.DOCTOR, Role.END_USER).optional().messages({
     'string.base': VALIDATION_ERROR_MESSAGE.ROLE_REQUIRED,
     'string.valid': VALIDATION_ERROR_MESSAGE.ROLE_INVALID
     // 'any.required': VALIDATION_ERROR_MESSAGE.ROLE_REQUIRED,
@@ -96,7 +96,7 @@ export const doctorSchema = Joi.object({
     'string.max': VALIDATION_ERROR_MESSAGE.PHONE_NUMBER_INVALID,
     'any.required': VALIDATION_ERROR_MESSAGE.PHONE_NUMBER_REQUIRED
   }),
-  role: Joi.string().valid(IRole.DOCTOR).optional().messages({
+  role: Joi.string().valid(Role.DOCTOR).optional().messages({
     'string.base': VALIDATION_ERROR_MESSAGE.ROLE_REQUIRED,
     'string.valid': VALIDATION_ERROR_MESSAGE.ROLE_INVALID,
     'any.required': VALIDATION_ERROR_MESSAGE.ROLE_REQUIRED

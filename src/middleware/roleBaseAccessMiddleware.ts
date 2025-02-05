@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { ERROR_MESSAGE, GLOBAL_MESSAGE } from '../constant/message';
 import { ResponseHandler } from '../utils/helper';
-import { CustomRequest } from './authMiddleware';
+import { ICustomRequest } from './authMiddleware';
 
 // Define Custom Request Interface
-// export interface CustomRequest extends Request {
+// export interface ICustomRequest extends Request {
 //   currentUser?: {
 //     user_id: string;
 //     role: string;
@@ -19,7 +19,7 @@ import { CustomRequest } from './authMiddleware';
  */
 const RoleBasedAccess = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction): any => {
-    const customReq = req as CustomRequest;
+    const customReq = req as ICustomRequest;
 
     // Check if the current user exists on the request (should be set by previous auth middleware)
     const user = customReq.currentUser;

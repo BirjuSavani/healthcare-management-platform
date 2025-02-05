@@ -5,7 +5,7 @@ import { UserMaster } from '../../../database/models';
 import { convertPlainTextToHash } from '../../../utils/commonUtils';
 import { paginate } from '../../../utils/helper/paginationHelper';
 import { logger } from '../../../utils/logger';
-import { IRole, IUserData } from '../../Auth/interface/authInterface';
+import { IUserData, Role } from '../../Auth/interface/authInterface';
 import { IUser } from '../../User/Profile/interface/userInterface';
 import { IUpdateUserPayload } from './interface/adminInterface';
 
@@ -14,7 +14,7 @@ class AdminService {
    * Get all users
    * @returns Promise<IUserData[]>
    */
-  async getAllUsers(req: Request) {
+  async getAllUsers(req: Request): Promise<IUserData[] | any> {
     try {
       const { filter, page = req.query.page || 1, limit = req.query.limit || 10 } = req.query;
 
@@ -22,7 +22,7 @@ class AdminService {
       const whereClause: any = {
         isDeleted: false,
         role: {
-          [Op.ne]: IRole.SUPER_ADMIN
+          [Op.ne]: Role.SUPER_ADMIN
         }
       };
 

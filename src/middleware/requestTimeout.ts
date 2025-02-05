@@ -2,9 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { GLOBAL_MESSAGE } from '../constant/message';
 import { ResponseHandler } from '../utils/helper';
+import { setTimeout, clearTimeout } from 'timers';
 
 // Middleware to handle request timeout
-const requestTimeout = (req: Request, res: Response, next: NextFunction) => {
+const requestTimeout = (req: Request, res: Response, next: NextFunction): any => {
   // Set a timeout to 1 minute
   const timeout: number = 60 * 1000;
 

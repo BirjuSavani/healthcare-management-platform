@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../constant/message';
-import { CustomRequest } from '../../middleware/authMiddleware';
+import { ICustomRequest } from '../../middleware/authMiddleware';
 import { comparePassword, convertPlainTextToHash, generateToken } from '../../utils/commonUtils';
 import { ResponseHandler } from '../../utils/helper';
 import { IApiResponse } from '../../utils/helper/interface/responseInterface';
@@ -17,7 +17,7 @@ class AuthController {
    */
   async signup(req: Request, res: Response): AuthResponse {
     try {
-      const { userId } = req as CustomRequest;
+      const { userId } = req as ICustomRequest;
       const payload: IAuthPayload = req.body;
 
       // Check if email already exists or phone number already exists
@@ -98,7 +98,7 @@ class AuthController {
    */
   async doctorSignup(req: Request, res: Response): Promise<IApiResponse> {
     try {
-      const { userId } = req as CustomRequest;
+      const { userId } = req as ICustomRequest;
       const payload: IAuthPayload = req.body;
       const doctorPayload: IDoctorPayload = req.body;
 
@@ -154,6 +154,7 @@ class AuthController {
       // Generate a secure resent token
       const resetToken = crypto.randomBytes(20).toString('hex');
       // const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+      // eslint-disable-next-line no-mixed-operators
       const resetTokenExpiry = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
 
       // Update user with reset token and expiry
@@ -183,7 +184,6 @@ class AuthController {
     try {
       const { token } = req.query; // Token from URL param
       const { newPassword } = req.body; // New password from body
-      console.log(token, newPassword);
 
       // check if user exists
       if (!token) {

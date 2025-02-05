@@ -48,7 +48,7 @@ class Logging {
    * This function is used to get the label of the file.
    * @param {string} fileName
    */
-  public getLabel(fileName: string) {
+  public getLabel(fileName: string): string {
     const parts = fileName.split('/');
     return parts[parts.length - 2] + '/' + parts.pop();
   }
@@ -59,34 +59,34 @@ class Logging {
    * @param method
    * @returns
    */
-  public setLabel(fileName: string, method: string) {
+  public setLabel(fileName: string, method: string): string {
     let label = this.getLabel(fileName);
     label += method ? ` ~ ${method}` : '';
     return label;
   }
 
   // Public methods for external use
-  public error(fileName: string, method: string, uuid: string, msg: string, data: any = {}) {
+  public error(fileName: string, method: string, uuid: string, msg: string, data: any = {}): void {
     this.logger.error(`[${this.setLabel(fileName, method)}] ${uuid} - ${msg}`, data ? data : '', '');
   }
 
-  public warn(fileName: string, method: string, uuid: string, msg: string, data: any = {}) {
+  public warn(fileName: string, method: string, uuid: string, msg: string, data: any = {}): void {
     this.logger.warn(`[${this.setLabel(fileName, method)}] ${uuid} - ${msg}`, data ? data : '', '');
   }
 
-  public info(fileName: string, method: string, uuid: string, msg: string, data: any = {}) {
+  public info(fileName: string, method: string, uuid: string, msg: string, data: any = {}): void {
     this.logger.info(`[${this.setLabel(fileName, method)}] ${uuid} - ${msg}`, data ? data : '', '');
   }
 
-  public debug(fileName: string, method: string, uuid: string, msg: string, data: any = {}) {
+  public debug(fileName: string, method: string, uuid: string, msg: string, data: any = {}): void {
     this.logger.debug(`[${this.setLabel(fileName, method)}] ${uuid} - ${msg}`, data ? data : '', '');
   }
 
-  public verbose(fileName: string, method: string, uuid: string, msg: string, data: any = {}) {
+  public verbose(fileName: string, method: string, uuid: string, msg: string, data: any = {}): void {
     this.logger.verbose(`[${this.setLabel(fileName, method)}] ${uuid} - ${msg}`, data ? data : '', '');
   }
 
-  public silly(fileName: string, method: string, uuid: string, msg: string, data: any = {}) {
+  public silly(fileName: string, method: string, uuid: string, msg: string, data: any = {}): void {
     this.logger.silly(`[${this.setLabel(fileName, method)}] ${uuid} - ${msg}`, data ? data : '', '');
   }
 }

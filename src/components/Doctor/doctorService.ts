@@ -4,8 +4,8 @@ import { ERROR_MESSAGE } from '../../constant/message';
 import { Specialization, UserMaster, UserMetaData } from '../../database/models';
 import { paginate } from '../../utils/helper/paginationHelper';
 import { logger } from '../../utils/logger';
-import { IDoctorPayload, IRole } from '../Auth/interface/authInterface';
-import { DoctorUpdateResponse } from './interface/doctorInterface';
+import { IDoctorPayload, Role } from '../Auth/interface/authInterface';
+import { IDoctorUpdateResponse } from './interface/doctorInterface';
 
 class DoctorService {
   /**
@@ -31,7 +31,7 @@ class DoctorService {
       // Build where clause for filtering
       const whereClause = {
         isDeleted: false,
-        role: IRole.DOCTOR,
+        role: Role.DOCTOR,
         ...(filter && {
           [Op.or]: [{ first_name: { [Op.like]: `%${filter}%` } }, { last_name: { [Op.like]: `%${filter}%` } }, { email: { [Op.like]: `%${filter}%` } }]
         })
@@ -124,7 +124,7 @@ class DoctorService {
    * @param userId - ID of the user performing the update
    * @returns Updated doctor and metadata
    */
-  async updateDoctor(doctorId: string, payload: IDoctorPayload, userId: string): Promise<DoctorUpdateResponse> {
+  async updateDoctor(doctorId: string, payload: IDoctorPayload, userId: string): Promise<IDoctorUpdateResponse> {
     const transaction = await UserMaster.sequelize?.transaction();
     if (!transaction) throw new Error('Transaction initialization failed.');
 
@@ -186,7 +186,7 @@ class DoctorService {
       return {
         user: updatedDoctors[0].get({ plain: true }),
         meta: updatedMetaRecords[0].get({ plain: true })
-      } as DoctorUpdateResponse;
+      } as IDoctorUpdateResponse;
     } catch (error) {
       // Rollback transaction on error
       if (transaction) await transaction.rollback();

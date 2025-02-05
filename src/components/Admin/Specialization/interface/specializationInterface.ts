@@ -26,4 +26,4 @@ interface ISpecializationList {
   totalPages: number;
 }
 
-export type SpecializationListResponse = Promise<IApiResponse<ISpecializationList | null>>;
+export type SpecializationListResponse = Promise<IApiResponse<ISpecializationList | null | any>>;

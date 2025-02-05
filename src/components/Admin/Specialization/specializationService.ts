@@ -41,7 +41,7 @@ class SpecializationService {
    * Get all specializations
    * @returns ISpecialization[]
    */
-  async getAllSpecializations(req: Request) {
+  async getAllSpecializations(req: Request): Promise<ISpecialization[] | any> {
     try {
       const { page = req.query.page || 1, limit = req.query.limit || 10 } = req.query;
 

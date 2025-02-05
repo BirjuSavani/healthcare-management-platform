@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { Dialect, Sequelize } from 'sequelize';
 import { GLOBAL_MESSAGE } from '../../constant/message';
 import { logger } from '../../utils/logger';
+import { setTimeout } from 'timers';
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ const sequelize: Sequelize = new Sequelize(process.env.DATABASE_NAME, process.en
   }
 });
 
-const connectWithRetry = async () => {
+const connectWithRetry = async (): Promise<void> => {
   let retries = 5;
 
   while (retries > 0) {
@@ -47,6 +48,6 @@ const connectWithRetry = async () => {
 };
 
 // Initialize connection
-export const initializeConnection = () => connectWithRetry();
+export const initializeConnection = async (): Promise<void> => connectWithRetry();
 
 export default sequelize;

@@ -5,7 +5,7 @@ import { ERROR_MESSAGE, GLOBAL_MESSAGE } from '../constant/message';
 import { ResponseHandler } from '../utils/helper';
 import { logger } from '../utils/logger';
 
-export interface CustomRequest extends Request {
+export interface ICustomRequest extends Request {
   userId: string;
   role: string;
   [key: string]: any;
@@ -15,7 +15,7 @@ export interface CustomRequest extends Request {
 //   role: string;
 // }
 
-function verifyToken(token: string) {
+function verifyToken(token: string): any {
   try {
     // Check if not set JWT_SECRET in environment
     if (!process.env.JWT_SECRET) {
@@ -68,9 +68,9 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction): 
     }
 
     // Dynamically attach properties to the request
-    (req as CustomRequest).userId = currentUser.user_id;
-    (req as CustomRequest).role = currentUser.role;
-    (req as CustomRequest).currentUser = currentUser;
+    (req as ICustomRequest).userId = currentUser.user_id;
+    (req as ICustomRequest).role = currentUser.role;
+    (req as ICustomRequest).currentUser = currentUser;
 
     next();
   } catch (error) {

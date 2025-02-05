@@ -1,4 +1,4 @@
-export interface ErrorResponse {
+export interface IErrorResponse {
   statusCode: number;
   success: boolean;
   message: string;
@@ -6,7 +6,7 @@ export interface ErrorResponse {
   data?: any;
 }
 
-export interface SuccessResponse<T = any> {
+export interface ISuccessResponse<T = any> {
   statusCode: number;
   success: boolean;
   message: string;

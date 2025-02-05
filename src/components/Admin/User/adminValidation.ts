@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { VALIDATION_ERROR_MESSAGE } from '../../../constant/message';
-import { IRole } from '../../Auth/interface/authInterface';
+import { Role } from '../../Auth/interface/authInterface';
 
 export const updateUserSchema = Joi.object({
   first_name: Joi.string().min(3).max(30).required().messages({
@@ -34,7 +34,7 @@ export const updateUserSchema = Joi.object({
     'string.max': VALIDATION_ERROR_MESSAGE.PHONE_NUMBER_INVALID,
     'any.required': VALIDATION_ERROR_MESSAGE.PHONE_NUMBER_REQUIRED
   }),
-  role: Joi.string().valid(IRole.ADMIN, IRole.END_USER).required().messages({
+  role: Joi.string().valid(Role.ADMIN, Role.END_USER).required().messages({
     'string.base': VALIDATION_ERROR_MESSAGE.ROLE_REQUIRED,
     'string.valid': VALIDATION_ERROR_MESSAGE.ROLE_INVALID,
     'any.required': VALIDATION_ERROR_MESSAGE.ROLE_REQUIRED

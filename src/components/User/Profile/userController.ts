@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { ERROR_MESSAGE, GLOBAL_MESSAGE, SUCCESS_MESSAGE } from '../../../constant/message';
-import { CustomRequest } from '../../../middleware/authMiddleware';
+import { ICustomRequest } from '../../../middleware/authMiddleware';
 import { ResponseHandler } from '../../../utils/helper';
 import { logger } from '../../../utils/logger';
 import authService from '../../Auth/authService';
@@ -11,7 +11,7 @@ import userService from './userService';
 class UserController {
   async getUserProfile(req: Request, res: Response): UserProfileResponse {
     try {
-      const { userId } = req as CustomRequest;
+      const { userId } = req as ICustomRequest;
       const user = await authService.findById(userId);
 
       logger.info(__filename, '', '', SUCCESS_MESSAGE.GET_USER_PROFILE, '');
@@ -29,7 +29,7 @@ class UserController {
    * @param res Response object
    */
   async updateUserProfile(req: Request, res: Response): UserProfileResponse {
-    const { userId } = req as CustomRequest;
+    const { userId } = req as ICustomRequest;
 
     try {
       const payload: IUpdateUserPayload = req.body;

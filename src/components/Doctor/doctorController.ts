@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { ERROR_MESSAGE, GLOBAL_MESSAGE, SUCCESS_MESSAGE } from '../../constant/message';
-import { CustomRequest } from '../../middleware/authMiddleware';
+import { ICustomRequest } from '../../middleware/authMiddleware';
 import { ResponseHandler } from '../../utils/helper';
 import { IApiResponse } from '../../utils/helper/interface/responseInterface';
 import { logger } from '../../utils/logger';
@@ -69,7 +69,7 @@ class DoctorController {
    * @returns UpdateDoctorResponse
    */
   async updateDoctorProfile(req: Request, res: Response): UpdateDoctorResponse {
-    const { userId } = req as CustomRequest;
+    const { userId } = req as ICustomRequest;
     const doctorId = req.params.id;
     try {
       const payload: IDoctorPayload = req.body;

@@ -48,7 +48,7 @@ const findAvailablePort = async (startPort: number): Promise<number> => {
  * Gracefully shuts down the server and database connection
  * @param server - HTTP server instance
  */
-const shutdown = async (server: ReturnType<typeof app.listen>) => {
+const shutdown = async (server: ReturnType<typeof app.listen>): Promise<void> => {
   logger.info(__filename, '', '', 'Initiating shutdown...', '');
 
   let dbClosed = false;
@@ -93,7 +93,7 @@ const shutdown = async (server: ReturnType<typeof app.listen>) => {
 /**
  * Starts the server and connects to the database
  */
-const startServer = async () => {
+const startServer = async (): Promise<void> => {
   try {
     // Find an available port
     const PORT = await findAvailablePort(DEFAULT_PORT);
@@ -113,8 +113,8 @@ const startServer = async () => {
     });
 
     // Listen for shutdown signals
-    process.on('SIGINT', () => shutdown(server)); // Handle Ctrl+C
-    process.on('SIGTERM', () => shutdown(server)); // Handle Docker stop or similar signals
+    process.on('SIGINT', async () => shutdown(server)); // Handle Ctrl+C
+    process.on('SIGTERM', async () => shutdown(server)); // Handle Docker stop or similar signals
   } catch (error) {
     logger.error(__filename, '', '', `Failed to start the server: ${error}`, { error });
     process.exit(1); // Exit with failure

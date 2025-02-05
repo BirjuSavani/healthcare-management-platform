@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import authController from '../../components/Auth/authController';
 import { authSchema, doctorSchema, loginSchema } from '../../components/Auth/authValidation';
-import { IRole } from '../../components/Auth/interface/authInterface';
+import { Role } from '../../components/Auth/interface/authInterface';
 import authMiddleware from '../../middleware/authMiddleware';
 import validationMiddleware from '../../middleware/joiMiddleware';
 import RoleBasedAccess from '../../middleware/roleBaseAccessMiddleware';
@@ -15,13 +15,7 @@ const router: Router = Router();
  * @route POST /api/auth/signup
  * @access Super Admin, Admin, Doctor
  */
-router.post(
-  '/admin/signup',
-  authMiddleware,
-  RoleBasedAccess([IRole.SUPER_ADMIN, IRole.ADMIN, IRole.DOCTOR]),
-  validationMiddleware(authSchema),
-  asyncHandler(authController.signup)
-);
+router.post('/admin/signup', authMiddleware, RoleBasedAccess([Role.SUPER_ADMIN, Role.ADMIN, Role.DOCTOR]), validationMiddleware(authSchema), asyncHandler(authController.signup));
 
 /**
  * End user signup.

@@ -20,7 +20,7 @@ class Email {
     });
   }
 
-  async sendEmailWithTemplate(emailData: IEmailData, templatePath: string, options?: ejs.Options) {
+  async sendEmailWithTemplate(emailData: IEmailData, templatePath: string, options?: ejs.Options): Promise<any> {
     const ejsPath = join(__dirname, `../notification/templates/${templatePath}`);
 
     try {
@@ -34,6 +34,7 @@ class Email {
       });
 
       // Send email with SMTP
+      // eslint-disable-next-line @typescript-eslint/return-await
       return this.sendEmail({ ...emailData, template, ...options });
     } catch (error: any) {
       logger.error(__filename, '', '', ERROR_MESSAGE.SEND_EMAIL_WITH_TEMPLATE_FAILURE, {
@@ -45,7 +46,7 @@ class Email {
     }
   }
 
-  async sendEmail(sendEmailData: IEmailData) {
+  async sendEmail(sendEmailData: IEmailData): Promise<any> {
     try {
       const mailOptions: any = {
         from: process.env.EMAIL_FROM,

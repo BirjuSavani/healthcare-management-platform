@@ -44,7 +44,7 @@ export interface IUserData {
   readonly reset_password_expires: Date;
 }
 
-export enum IRole {
+export enum Role {
   SUPER_ADMIN = 'superadmin',
   ADMIN = 'admin',
   DOCTOR = 'doctor',

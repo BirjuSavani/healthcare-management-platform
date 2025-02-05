@@ -4,7 +4,7 @@ import AuthRouter from './Admin/authRoutes';
 import UserRouter from './User/userRoutes';
 import DoctorRouter from './Doctor/doctorRoutes';
 
-export default (app: Application) => {
+export default (app: Application): void => {
   const apiRouter: Router = Router();
 
   /**

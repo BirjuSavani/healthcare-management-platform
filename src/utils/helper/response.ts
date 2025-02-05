@@ -13,6 +13,7 @@ export class ResponseHandler {
     return response;
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   static error(res: ExpressResponse, statusCode: number, success: boolean, message: string, error?: any): IApiResponse {
     const response = {
       statusCode,

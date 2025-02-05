@@ -3,7 +3,7 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../constant/message';
 import { UserMaster, UserMetaData } from '../../database/models';
 import mail from '../../notification/mail';
 import { logger } from '../../utils/logger';
-import { IAuthPayload, IDoctorMetaData, IDoctorPayload, IRole, IUserData } from './interface/authInterface';
+import { IAuthPayload, IDoctorMetaData, IDoctorPayload, Role, IUserData } from './interface/authInterface';
 
 class AuthService {
   /**
@@ -42,6 +42,7 @@ class AuthService {
    * @param phone_number - The user's phone number.
    * @returns The user data or null if not found.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   async findByPhoneNumber(phone_number: string): Promise<IUserData | null> {
     try {
       return await this.findUser({ where: { phone_number } });
@@ -81,7 +82,7 @@ class AuthService {
       const user = await UserMaster.create({
         ...payload,
         password: hashPassword,
-        role: isEndUser ? IRole.END_USER : payload.role,
+        role: isEndUser ? Role.END_USER : payload.role,
         isActive: true,
         isDeleted: false,
         created_by: userId ?? null,
@@ -108,7 +109,7 @@ class AuthService {
    * @param userId - The user ID to update.
    * @returns The updated user data.
    */
-  private async updateCreateBy(userId: string, transaction?: Transaction) {
+  private async updateCreateBy(userId: string, transaction?: Transaction): Promise<IUserData> {
     try {
       // Update the `created_by` and `last_modified_by` fields
       const user = await UserMaster.update(
@@ -133,7 +134,7 @@ class AuthService {
    * @param userId - The user ID to update.
    * @returns The updated user data.
    */
-  private async updateCreateByUserMetaDta(userId: string, transaction?: Transaction) {
+  private async updateCreateByUserMetaDta(userId: string, transaction?: Transaction): Promise<IUserData> {
     try {
       // Update the `created_by` and `last_modified_by` fields
       const user = await UserMetaData.update(
@@ -175,7 +176,7 @@ class AuthService {
           date_of_birth: doctorPayload.date_of_birth,
           gender: doctorPayload.gender,
           password: hashPassword,
-          role: IRole.DOCTOR,
+          role: Role.DOCTOR,
           isActive: true,
           isDeleted: false,
           created_by: userId ?? null,
@@ -267,7 +268,6 @@ class AuthService {
   async updateUserPassword(userId: string, password: string): Promise<void> {
     try {
       await UserMaster.update({ password: password, reset_password_token: null, reset_password_expires: null }, { where: { user_id: userId } });
-      return;
     } catch (error) {
       logger.error(__filename, '', '', ERROR_MESSAGE.UPDATE_PASSWORD_FAILURE, '');
       throw new Error(`${ERROR_MESSAGE.UPDATE_PASSWORD_FAILURE}: ${error}`);
